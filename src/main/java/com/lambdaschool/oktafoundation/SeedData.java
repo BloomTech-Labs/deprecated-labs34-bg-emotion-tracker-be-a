@@ -1,8 +1,8 @@
 package com.lambdaschool.oktafoundation;
 
-import com.lambdaschool.oktafoundation.models.Role;
-import com.lambdaschool.oktafoundation.models.User;
-import com.lambdaschool.oktafoundation.models.UserRoles;
+import com.lambdaschool.oktafoundation.models.*;
+import com.lambdaschool.oktafoundation.services.ClubService;
+import com.lambdaschool.oktafoundation.services.ProgramService;
 import com.lambdaschool.oktafoundation.services.RoleService;
 import com.lambdaschool.oktafoundation.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +39,12 @@ public class SeedData
     @Autowired
     UserService userService;
 
+    @Autowired
+    ProgramService programService;
+
+    @Autowired
+    ClubService clubService;
+
     /**
      * Generates test, seed data for our application
      * First a set of known data is seeded into our database.
@@ -53,69 +59,134 @@ public class SeedData
     public void run(String[] args) throws
                                    Exception
     {
+        userService.deleteAll();
         roleService.deleteAll();
-        Role r1 = new Role("ADMIN");
-        Role r2 = new Role("YDP");
-        Role r3 = new Role("CD");
-        Role r4 = new Role("KID");
+        clubService.deleteAll();
+        programService.deleteAll();
+
+        Role r1 = new Role("superadmin");
+        Role r2 = new Role("clubdir");
+        Role r3 = new Role("ydp");
+        Role r4 = new Role("user");
 
         r1 = roleService.save(r1);
         r2 = roleService.save(r2);
         r3 = roleService.save(r3);
         r4 = roleService.save(r4);
 
-//        ADMIN
+        // Super Admin
         User u1 = new User("llama001@maildrop.cc");
         u1.getRoles()
             .add(new UserRoles(u1,
                 r1));
         userService.save(u1);
 
-//        Youth Development Professional
-        User u2 = new User("barnbarn@maildrop.cc");
+
+        // Club Directors
+        User u2 = new User("llama002@maildrop.cc");
         u2.getRoles()
             .add(new UserRoles(u2,
                 r2));
         userService.save(u2);
 
-//        Club Director
-        User u3 = new User("serviceprovider@bngclub.cc");
+        User u3 = new User("llama003@maildrop.cc");
         u3.getRoles()
-                .add(new UserRoles(u3,
-                        r3));
+            .add(new UserRoles(u3,
+                r2));
         userService.save(u3);
 
-//        Kid
-        User u4 = new User("normaluser@bngclub.cc");
+        User u4 = new User("llama004@maildrop.cc");
         u4.getRoles()
-                .add(new UserRoles(u4,
-                        r4));
+            .add(new UserRoles(u4,
+                r2));
         userService.save(u4);
 
-
-        // The following is an example user!
-        /*
-        // admin, data, user
-        User u1 = new User("admin",
-            "password",
-            "admin@lambdaschool.local");
-        u1.getRoles()
-            .add(new UserRoles(u1,
-                r1));
-        u1.getRoles()
-            .add(new UserRoles(u1,
-                r2));
-        u1.getRoles()
-            .add(new UserRoles(u1,
+        // Youth Development Professionals
+        User u5 = new User("llama005@maildrop.cc");
+        u5.getRoles()
+            .add(new UserRoles(u5,
                 r3));
-        u1.getUseremails()
-            .add(new Useremail(u1,
-                "admin@email.local"));
-        u1.getUseremails()
-            .add(new Useremail(u1,
-                "admin@mymail.local"));
+        userService.save(u5);
 
-        userService.save(u1);
-        */
+        User u6 = new User("llama006@maildrop.cc");
+        u6.getRoles()
+            .add(new UserRoles(u6,
+                r3));
+        userService.save(u6);
+
+        User u7 = new User("llama007@maildrop.cc");
+        u7.getRoles()
+            .add(new UserRoles(u7,
+                r4));
+        userService.save(u7);
+
+        Program p1 = new Program("Volleyball");
+        Program p2 = new Program("Dance");
+        Program p3 = new Program("Football");
+        Program p4 = new Program("Basketball");
+        Program p5 = new Program("Baseball");
+
+
+        p1 = programService.save(p1);
+        p2 = programService.save(p2);
+        p3 = programService.save(p3);
+        p4 = programService.save(p4);
+        p5 = programService.save(p5);
+
+        Club c1 = new Club( "club1", "llama002@maildrop.cc");
+        c1.getPrograms()
+            .add(new ClubPrograms(c1,p1));
+        c1.getPrograms()
+            .add(new ClubPrograms(c1,p2));
+        c1.getPrograms()
+            .add(new ClubPrograms(c1,p3));
+        c1.getPrograms()
+            .add(new ClubPrograms(c1,p4));
+        c1.getPrograms()
+            .add(new ClubPrograms(c1,p5));
+        clubService.save(c1);
+
+        Club c2 = new Club( "club2", "llama003@maildrop.cc");
+        c2.getPrograms()
+            .add(new ClubPrograms(c2,p1));
+        c2.getPrograms()
+            .add(new ClubPrograms(c2,p2));
+        c2.getPrograms()
+            .add(new ClubPrograms(c2,p4));
+        clubService.save(c2);
+
+        Club c3 = new Club( "club3",  "llama004@maildrop.cc");
+        c3.getPrograms()
+            .add(new ClubPrograms(c3,p1));
+        c3.getPrograms()
+            .add(new ClubPrograms(c3,p2));
+        c3.getPrograms()
+            .add(new ClubPrograms(c3,p3));
+        c3.getPrograms()
+            .add(new ClubPrograms(c3,p4));
+        clubService.save(c3);
+
+        // hard coding club data for addition of programs by csv file
+        // associating programs with clubname for many to many relationship
+        // convert to form, CSV, or integration with stakeholder management system in future release
+
+        Club c4 = new Club( "anderson", "andrew lorenzo");
+        clubService.save(c4);
+        Club c5 = new Club( "grossman", "henry segovia");
+        clubService.save(c5);
+        Club c6 = new Club( "jefferson", "jennifer wissusik");
+        clubService.save(c6);
+        Club c7 = new Club( "johnston", "jennifer wissusik");
+        clubService.save(c7);
+        Club c8 = new Club( "morton", "lisa barron");
+        clubService.save(c8);
+        Club c9 = new Club( "notter", "leslie chicas");
+        clubService.save(c9);
+        Club c10 = new Club( "catlin", "");
+        clubService.save(c10);
+        Club c11 = new Club( "marley", "");
+        clubService.save(c11);
+        Club c12 = new Club( "stelle", "");
+        clubService.save(c12);
     }
 }

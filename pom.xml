@@ -101,6 +101,11 @@
         </dependency>
 
         <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-csv</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>com.okta.spring</groupId>
             <artifactId>okta-spring-boot-starter</artifactId>
             <version>1.4.0</version>
@@ -117,7 +122,7 @@
     </dependencies>
 
     <build>
-        <finalName>jrmmba-oktafoundation</finalName>
+        <finalName>bg-emotion-tracker-be-a</finalName>
 
         <plugins>
             <plugin>
