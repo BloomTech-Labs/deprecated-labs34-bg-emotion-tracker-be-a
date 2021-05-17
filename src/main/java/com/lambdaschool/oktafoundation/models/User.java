@@ -42,15 +42,6 @@ public class User
     @JsonIgnoreProperties(value = "user",
         allowSetters = true)
     private List<Useremail> useremails = new ArrayList<>();
-    /**
-     * Part of the join relationship between Club and Users
-     * connects users to the club users combination
-     */
-    @OneToMany(mappedBy = "user",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true)
-    @JsonIgnoreProperties(value = "user", allowSetters = true)
-    private Set<ClubUsers> clubs = new HashSet<>();
 
     /**
      * Part of the join relationship between user and role
