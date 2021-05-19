@@ -45,7 +45,7 @@ public class ReactionsServiceImpl implements ReactionsService {
 
     @Override
     public Reactions findByName(String name){
-        Reactions re = reactionrepos.findByNameIgnoreCase(name);
+        Reactions re = reactionrepos.findByEmojinameIgnoreCase(name);
 
         if(re != null){
             return re;
