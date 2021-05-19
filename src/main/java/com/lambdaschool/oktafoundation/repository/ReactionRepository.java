@@ -7,7 +7,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 public interface ReactionRepository extends CrudRepository<Reactions, Long> {
-    Reactions findByNameIgnoreCase(String name);
+    Reactions findByEmojinameIgnoreCase(String name);
 
     @Transactional
     @Modifying
