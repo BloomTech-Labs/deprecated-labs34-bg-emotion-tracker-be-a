@@ -3,6 +3,7 @@ package com.lambdaschool.oktafoundation.controllers;
 import com.lambdaschool.oktafoundation.exceptions.ResourceNotFoundException;
 import com.lambdaschool.oktafoundation.models.ErrorDetail;
 import com.lambdaschool.oktafoundation.models.Member;
+import com.lambdaschool.oktafoundation.models.MemberReactions;
 import com.lambdaschool.oktafoundation.services.MemberService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -28,6 +29,7 @@ public class MemberController {
 
     @Autowired
     private MemberService memberService;
+
 
     @ApiOperation(value = "returns all Members",
         response = Member.class,

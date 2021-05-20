@@ -29,7 +29,7 @@ public class Club extends Auditable
         cascade = CascadeType.ALL)
     @JsonIgnoreProperties(value = "club",
         allowSetters = true)
-    private Set<ClubPrograms> programs = new HashSet<>();
+    private Set<ClubPrograms> program = new HashSet<>();
 
     public Club()
     {
@@ -48,7 +48,7 @@ public class Club extends Auditable
     {
         this.clubname = clubname;
         this.clubdirector = clubdirector;
-        this.programs = programs;
+        this.program = programs;
     }
 
     public long getClubid() { return clubid; }
@@ -73,11 +73,11 @@ public class Club extends Auditable
 
     public Set<ClubPrograms> getPrograms()
     {
-        return programs;
+        return program;
     }
 
     public void setPrograms(Set<ClubPrograms> programs)
     {
-        this.programs = programs;
+        this.program = programs;
     }
 }

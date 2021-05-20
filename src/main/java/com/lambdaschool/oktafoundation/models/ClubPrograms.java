@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "clubprograms")
@@ -25,8 +27,15 @@ public class ClubPrograms
     @ManyToOne
     @NotNull
     @JoinColumn(name = "programid")
-    @JsonIgnoreProperties(value = "clubs")
+    @JsonIgnoreProperties(value = "clubs", allowSetters = true)
     private Program program;
+
+    // Join table of club programs and member reactions
+    @Column
+    @OneToMany(
+            mappedBy = "clubProgram",
+            cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<MemberReactions> memberReaction = new HashSet<>();
 
     public ClubPrograms(){
 
@@ -35,6 +44,21 @@ public class ClubPrograms
     public ClubPrograms(Club club, Program program){
         this.club = club;
         this.program = program;
+
+    }
+
+    public ClubPrograms(Club club, Program program, Set <MemberReactions> memberReactions){
+        this.club = club;
+        this.program = program;
+        this.memberReaction = memberReactions;
+    }
+
+    public Set<MemberReactions> getMemberReactions() {
+        return memberReaction;
+    }
+
+    public void setMemberReactions(Set<MemberReactions> memberReactions) {
+        this.memberReaction = memberReactions;
     }
 
     public Club getClub() {

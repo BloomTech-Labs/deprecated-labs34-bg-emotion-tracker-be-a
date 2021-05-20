@@ -2,6 +2,7 @@ package com.lambdaschool.oktafoundation.services;
 
 import com.lambdaschool.oktafoundation.exceptions.ResourceNotFoundException;
 import com.lambdaschool.oktafoundation.models.Member;
+import com.lambdaschool.oktafoundation.models.MemberReactions;
 import com.lambdaschool.oktafoundation.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,7 @@ public class MemberServiceImpl implements MemberService
 {
     @Autowired
     private MemberRepository memberRepository;
+
     @Override
     public List<Member> findAll()
     {
@@ -27,6 +29,12 @@ public class MemberServiceImpl implements MemberService
             .iterator()
             .forEachRemaining(list::add);
         return list;
+    }
+
+    @Override
+    public List<Member> findByIdContaining(String partialmemberId)
+    {
+        return memberRepository.findMembersByMemberidContaining(partialmemberId);
     }
 
     @Transactional
@@ -111,11 +119,8 @@ public class MemberServiceImpl implements MemberService
         }
         return mm;
     }
-    @Override
-    public List<Member> findByIdContaining(String partialmemberId)
-    {
-        return memberRepository.findMembersByMemberidContaining(partialmemberId);
-    }
+
+
     @Override
     public void delete(long id)
     {
