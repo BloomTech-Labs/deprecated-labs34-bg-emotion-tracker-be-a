@@ -7,11 +7,11 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 public interface ReactionRepository extends CrudRepository<Reactions, Long> {
-    Reactions findByEmojinameIgnoreCase(String emojiname);
+    Reactions findByEmojinameIgnoreCase(String name);
 
     @Transactional
     @Modifying
-    @Query (value = "UPDATE reactions SET emojiname = :emojiname, last_modified_by = :uname, last_modified_date = CURRENT_TIMESTAMP WHERE reactionid = :reactionid",
+    @Query (value = "UPDATE reactions SET emojiname = :name, last_modified_by = :uname, last_modified_date = CURRENT_TIMESTAMP WHERE reactionid = :reactionid",
         nativeQuery = true)
-    void updateEmojiname(String uname, long reactionid, String emojiname);
+    void updateEmojiname(String uname, long reactionid, String name);
 }
