@@ -22,7 +22,9 @@ public class ReactionController {
     private ReactionsService reactionsService;
 
     @GetMapping (value = "/reactions",
+            produces = "appilacation/json")
         produces = "appilacation/json")
+
     public ResponseEntity<?> listAllReactions(){
         List<Reactions> myReactions = reactionsService.findAll();
         return new ResponseEntity<>(myReactions, HttpStatus.OK);

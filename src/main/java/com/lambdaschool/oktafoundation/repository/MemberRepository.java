@@ -10,5 +10,5 @@ public interface MemberRepository extends CrudRepository<Member, Long>
 {
     Member findMemberByMemberid(String memberid);
 
-    List<Member> findMembersByMemberidContaining(String partialmemberid);
+    List<Member> findMembersByMemberidContaining(String partialmemberId);
 }

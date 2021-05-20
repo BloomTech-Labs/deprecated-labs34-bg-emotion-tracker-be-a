@@ -1,6 +1,8 @@
 package com.lambdaschool.oktafoundation.services;
 
+import com.lambdaschool.oktafoundation.exceptions.ResourceNotFoundException;
 import com.lambdaschool.oktafoundation.models.Member;
+import com.lambdaschool.oktafoundation.models.MemberReactions;
 
 import java.io.IOException;
 import java.io.InputStream;

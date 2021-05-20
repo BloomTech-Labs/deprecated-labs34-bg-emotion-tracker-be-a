@@ -6,9 +6,10 @@ import java.io.Serializable;
 @Embeddable
 public class ClubProgramsId
     implements Serializable {
-    private long club;
 
-    private long program;
+    private Long club;
+
+    private Long program;
 
     public ClubProgramsId() {
     }

@@ -60,7 +60,7 @@ public class OktaAuthSecurityConfig extends WebSecurityConfigurerAdapter
 
             .antMatchers("/users/user/**")
             .authenticated()
-            .antMatchers("/clubactivities/**")
+            .antMatchers("/clubprograms/**")
             .hasAnyRole("ADMIN", "CD")
 
             .antMatchers("/clubs/**")
