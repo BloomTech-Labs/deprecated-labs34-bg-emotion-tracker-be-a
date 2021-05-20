@@ -1,2 +1,4 @@
-package com.lambdaschool.oktafoundation.models;public class ProgramReactions {
+package com.lambdaschool.oktafoundation.models;
+
+public class ProgramReactions {
 }

@@ -23,6 +23,7 @@ public class Program extends Auditable{
     @JsonIgnoreProperties (value = "program", allowSetters = true)
     private Set<ClubPrograms> club = new HashSet<>();
 
+
     public Program() {
     }
 

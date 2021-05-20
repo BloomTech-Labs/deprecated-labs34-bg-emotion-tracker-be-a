@@ -34,13 +34,21 @@ public class ReactionsServiceImpl implements ReactionsService {
         reactionrepos.findAll()
                 .iterator()
                 .forEachRemaining(list::add);
+
+            .iterator()
+            .forEachRemaining(list::add);
+
         return list;
     }
 
     @Override
     public Reactions findReactionById(long id){
         return reactionrepos.findById(id)
+
                 .orElseThrow(()-> new ResourceNotFoundException("Reaction id " + id + " not found!"));
+
+            .orElseThrow(()-> new ResourceNotFoundException("Reaction id " + id + " not found!"));
+
     }
 
     @Override
@@ -76,8 +84,13 @@ public class ReactionsServiceImpl implements ReactionsService {
         Reactions newReaction = findReactionById(id);
 
         reactionrepos.updateEmojiname(userAuditing.getCurrentAuditor()
+
                         .get(),
                 id, reaction.getEmojiname());
+
+            .get(),
+            id, reaction.getEmojiname());
+
         return findReactionById(id);
     }
 }

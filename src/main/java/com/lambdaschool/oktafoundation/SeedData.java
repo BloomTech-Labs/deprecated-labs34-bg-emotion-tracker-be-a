@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * SeedData puts both known and random data into the database. It implements CommandLineRunner.
  * <p>
- * CoomandLineRunner: Spring Boot automatically runs the run method once and only once
+ * CommandLineRunner: Spring Boot automatically runs the run method once and only once
  * after the application context has been loaded.
  */
 @Transactional
@@ -29,7 +29,6 @@ public class SeedData
      */
     @Autowired
     RoleService roleService;
-
     /**
      * Connects the user service to this process
      */
@@ -63,6 +62,7 @@ public class SeedData
         roleService.deleteAll();
         clubService.deleteAll();
         programService.deleteAll();
+        reactionsService.deleteAll();
 
         Role r1 = new Role("superadmin");
         Role r2 = new Role("clubdir");

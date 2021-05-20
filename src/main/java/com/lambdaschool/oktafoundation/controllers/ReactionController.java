@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+
 @RestController
 @RequestMapping("/reactions")
 public class ReactionController {
@@ -22,6 +23,8 @@ public class ReactionController {
 
     @GetMapping (value = "/reactions",
             produces = "appilacation/json")
+        produces = "appilacation/json")
+
     public ResponseEntity<?> listAllReactions(){
         List<Reactions> myReactions = reactionsService.findAll();
         return new ResponseEntity<>(myReactions, HttpStatus.OK);

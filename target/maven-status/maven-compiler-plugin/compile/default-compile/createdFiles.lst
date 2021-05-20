@@ -3,7 +3,6 @@ com\lambdaschool\oktafoundation\repository\ClubRepository.class
 com\lambdaschool\oktafoundation\models\Auditable.class
 com\lambdaschool\oktafoundation\services\UserAuditing.class
 com\lambdaschool\oktafoundation\controllers\RolesController.class
-ClubController.class
 com\lambdaschool\oktafoundation\services\RoleServiceImpl.class
 com\lambdaschool\oktafoundation\services\ProgramService.class
 com\lambdaschool\oktafoundation\config\OktaAuthSecurityConfig.class
@@ -16,9 +15,11 @@ com\lambdaschool\oktafoundation\models\Useremail.class
 com\lambdaschool\oktafoundation\utils\CsvUtils.class
 com\lambdaschool\oktafoundation\repository\MemberRepository.class
 com\lambdaschool\oktafoundation\config\SwaggerWebMVC.class
+com\lambdaschool\oktafoundation\services\ReactionsService.class
 com\lambdaschool\oktafoundation\controllers\UserController.class
 com\lambdaschool\oktafoundation\models\ValidationError.class
 com\lambdaschool\oktafoundation\controllers\ProgramController.class
+com\lambdaschool\oktafoundation\models\MemberReactions.class
 com\lambdaschool\oktafoundation\models\User.class
 com\lambdaschool\oktafoundation\services\HelperFunctionsImpl.class
 com\lambdaschool\oktafoundation\OktaFoundationApplication.class
@@ -26,6 +27,8 @@ com\lambdaschool\oktafoundation\handlers\RestExceptionHandler.class
 com\lambdaschool\oktafoundation\services\ClubServiceImpl.class
 com\lambdaschool\oktafoundation\services\UseremailService.class
 com\lambdaschool\oktafoundation\models\Program.class
+com\lambdaschool\oktafoundation\controllers\ReactionController.class
+com\lambdaschool\oktafoundation\controllers\ClubController.class
 com\lambdaschool\oktafoundation\controllers\MemberController.class
 com\lambdaschool\oktafoundation\models\ClubProgramsId.class
 com\lambdaschool\oktafoundation\services\UseremailServiceImpl.class
@@ -34,14 +37,18 @@ com\lambdaschool\oktafoundation\services\MemberService.class
 com\lambdaschool\oktafoundation\config\H2ServerConfiguration.class
 com\lambdaschool\oktafoundation\services\ClubService.class
 com\lambdaschool\oktafoundation\services\MemberServiceImpl.class
+com\lambdaschool\oktafoundation\models\Reactions.class
 com\lambdaschool\oktafoundation\config\DataSourceConfig.class
+com\lambdaschool\oktafoundation\models\ProgramReactions.class
 com\lambdaschool\oktafoundation\config\JwtAuthenticationFilter.class
 com\lambdaschool\oktafoundation\controllers\UseremailController.class
 com\lambdaschool\oktafoundation\repository\ProgramRepository.class
 com\lambdaschool\oktafoundation\exceptions\CustomErrorDetails.class
 com\lambdaschool\oktafoundation\exceptions\ResourceFoundException.class
+com\lambdaschool\oktafoundation\services\ReactionsServiceImpl.class
 com\lambdaschool\oktafoundation\models\Member.class
 com\lambdaschool\oktafoundation\models\UserRoles.class
+com\lambdaschool\oktafoundation\repository\ReactionRepository.class
 com\lambdaschool\oktafoundation\models\Club.class
 com\lambdaschool\oktafoundation\config\Swagger2Config.class
 com\lambdaschool\oktafoundation\services\ProgramServiceImpl.class
