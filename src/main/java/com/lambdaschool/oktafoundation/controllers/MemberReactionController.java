@@ -56,6 +56,15 @@ public class MemberReactionController {
         return new ResponseEntity<>(memberReactions, HttpStatus.OK);
     }
 
+    @PostMapping(value = "/memberreaction/submit",consumes = "application/json")
+    public ResponseEntity<?> addMemberReaction(@RequestBody MemberReactions newReaction)
+    {
+        newReaction.setMemberreactionid(0);
+        newReaction = memberReactionService.save(newReaction);
+
+        return new ResponseEntity<>(newReaction, HttpStatus.CREATED);
+    }
+
 //    @PreAuthorize("hasAnyRole('ADMIN', 'CD', 'YDP')")
 //    @PostMapping(value = "/memberreaction/submit")
 //    public ResponseEntity <?> addReaction(

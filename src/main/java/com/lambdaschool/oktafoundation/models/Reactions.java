@@ -18,6 +18,14 @@ public class Reactions extends Auditable {
     @Column(unique = true)
     private String emojicode;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member")
+    private Member member;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "program")
+    private Program program;
+
     public Reactions() {
     }
 
@@ -48,6 +56,22 @@ public class Reactions extends Auditable {
 
     public void setEmojicode(String emojicode) {
         this.emojicode = emojicode;
+    }
+
+    public Member getMember() {
+        return member;
+    }
+
+    public void setMember(Member member) {
+        this.member = member;
+    }
+
+    public Program getProgram() {
+        return program;
+    }
+
+    public void setProgram(Program program) {
+        this.program = program;
     }
 }
 

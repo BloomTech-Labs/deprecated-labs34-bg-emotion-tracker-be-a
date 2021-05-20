@@ -67,12 +67,21 @@ public class MemberReactions extends  Auditable implements Serializable {
         this.ischeckedin = ischeckedin;
     }
 
-    public ClubPrograms getClubPrograms() {
+
+    public long getMemberreactionid() {
+        return memberreactionid;
+    }
+
+    public void setMemberreactionid(long memberreactionid) {
+        this.memberreactionid = memberreactionid;
+    }
+
+    public ClubPrograms getClubProgram() {
         return clubProgram;
     }
 
-    public void setClubPrograms(ClubPrograms clubPrograms) {
-        this.clubProgram = clubPrograms;
+    public void setClubProgram(ClubPrograms clubProgram) {
+        this.clubProgram = clubProgram;
     }
 
     @Override
@@ -83,7 +92,7 @@ public class MemberReactions extends  Auditable implements Serializable {
 
         MemberReactions that = (MemberReactions) o;
 
-        return ((member == null) ? 0 : member.getMemberid()) == ((that.member == null) ? 0 : that.member.getMemberid()) && ((reactions == null) ? 0 : reactions.getReactionid()) == ((that.reactions == null) ? 0 : that.reactions.getReactionid()) && clubProgram.equals(that.getClubPrograms());
+        return ((member == null) ? 0 : member.getMemberid()) == ((that.member == null) ? 0 : that.member.getMemberid()) && ((reactions == null) ? 0 : reactions.getReactionid()) == ((that.reactions == null) ? 0 : that.reactions.getReactionid()) && clubProgram.equals(that.getClubProgram());
 
 
     }
