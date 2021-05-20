@@ -3,7 +3,6 @@ com\lambdaschool\oktafoundation\repository\ClubRepository.class
 com\lambdaschool\oktafoundation\models\Auditable.class
 com\lambdaschool\oktafoundation\services\UserAuditing.class
 com\lambdaschool\oktafoundation\controllers\RolesController.class
-ClubController.class
 com\lambdaschool\oktafoundation\services\RoleServiceImpl.class
 com\lambdaschool\oktafoundation\services\ProgramService.class
 com\lambdaschool\oktafoundation\config\OktaAuthSecurityConfig.class
@@ -29,6 +28,7 @@ com\lambdaschool\oktafoundation\services\ClubServiceImpl.class
 com\lambdaschool\oktafoundation\services\UseremailService.class
 com\lambdaschool\oktafoundation\models\Program.class
 com\lambdaschool\oktafoundation\controllers\ReactionController.class
+com\lambdaschool\oktafoundation\controllers\ClubController.class
 com\lambdaschool\oktafoundation\controllers\MemberController.class
 com\lambdaschool\oktafoundation\models\ClubProgramsId.class
 com\lambdaschool\oktafoundation\services\UseremailServiceImpl.class

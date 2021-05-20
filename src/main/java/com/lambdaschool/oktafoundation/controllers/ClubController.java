@@ -1,3 +1,5 @@
+package com.lambdaschool.oktafoundation.controllers;
+
 import com.lambdaschool.oktafoundation.models.Club;
 import com.lambdaschool.oktafoundation.repository.ClubRepository;
 import com.lambdaschool.oktafoundation.services.ClubService;
