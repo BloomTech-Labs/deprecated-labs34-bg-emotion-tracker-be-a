@@ -15,12 +15,12 @@ public class ClubMembers extends  Auditable implements Serializable {
     @NotNull
     @JoinColumn(name = "clubid")
     @JsonIgnoreProperties(value = {"members", "programs", "users"}, allowSetters = true)
-    private Club clubid;
+    private Club club;
 
     @Id
     @ManyToOne
     @NotNull
-    @JoinColumn(name = "member")
+    @JoinColumn(name = "memberid")
     @JsonIgnoreProperties(value = {"clubs", "reactions"}, allowSetters = true)
     private Member member;
 
@@ -28,16 +28,16 @@ public class ClubMembers extends  Auditable implements Serializable {
     }
 
     public ClubMembers(Club club, Member member) {
-        this.clubid = club;
+        this.club = club;
         this.member = member;
     }
 
     public Club getClub() {
-        return clubid;
+        return club;
     }
 
     public void setClub(Club club) {
-        this.clubid = club;
+        this.club = club;
     }
 
     public Member getMember() {
@@ -60,7 +60,7 @@ public class ClubMembers extends  Auditable implements Serializable {
             return false;
         }
         ClubMembers that = (ClubMembers) o;
-        return ((clubid == null) ? 0 : clubid.getClubid()) == ((that.clubid == null) ? 0 : that.clubid.getClubid()) && ((member == null) ? 0 : member.getMemberid()) == ((that.member == null) ? 0 : that.member.getMemberid());
+        return ((club == null) ? 0 : club.getClubid()) == ((that.club == null) ? 0 : that.club.getClubid()) && ((member == null) ? 0 : member.getMemberid()) == ((that.member == null) ? 0 : that.member.getMemberid());
 
     }
     @Override

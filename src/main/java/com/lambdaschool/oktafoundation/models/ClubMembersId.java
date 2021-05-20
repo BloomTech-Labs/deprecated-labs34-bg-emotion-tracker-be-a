@@ -6,27 +6,27 @@ import java.io.Serializable;
 @Embeddable
 public class ClubMembersId implements Serializable {
 
-    private long clubid;
+    private long club;
 
-    private long memberid;
+    private long member;
 
     public ClubMembersId() {
     }
 
     public long getClubid() {
-        return clubid;
+        return club;
     }
 
     public void setClubid(long clubid) {
-        this.clubid = clubid;
+        this.club = clubid;
     }
 
     public long getMemberid() {
-        return memberid;
+        return member;
     }
 
     public void setMemberid(long memberid) {
-        this.memberid = memberid;
+        this.member = memberid;
     }
 
     @Override
@@ -40,7 +40,7 @@ public class ClubMembersId implements Serializable {
             return false;
         }
         ClubMembersId that = (ClubMembersId) o;
-        return memberid == that.memberid && clubid == that.clubid;
+        return member == that.member && club == that.club;
     }
 
     @Override

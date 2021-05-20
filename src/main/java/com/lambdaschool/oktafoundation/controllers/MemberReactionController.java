@@ -2,6 +2,7 @@ package com.lambdaschool.oktafoundation.controllers;
 
 import com.lambdaschool.oktafoundation.models.*;
 import com.lambdaschool.oktafoundation.repository.*;
+import com.lambdaschool.oktafoundation.services.ClubService;
 import com.lambdaschool.oktafoundation.services.MemberReactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -62,9 +63,14 @@ public class MemberReactionController {
 //            @RequestParam(value = "programid") Long programid,
 //            @RequestParam(value = "clubid") Long clubid,
 //            @RequestParam(value = "reaction") String reaction
-//    ){
+//    )
+//    {
+//
+//    }
+}
 //        var member = memberRepository.findMemberByMemberid(memberid).orElseThrow();
-//        var clubprograms = clubProgramRepository.getClubProgramsByProgramIdByClubId(programid, clubid).orElseThrow();
+//        var clubprograms = clubService.
+//
 //
 //        clubMembersRepository.save(new ClubMembers(clubRepository.findById(clubid).orElseThrow(), member));
 //
@@ -77,5 +83,3 @@ public class MemberReactionController {
 //        memberReactionRepository.save(temp);
 //
 //        return new ResponseEntity<>(HttpStatus.OK);
-//    }
-}

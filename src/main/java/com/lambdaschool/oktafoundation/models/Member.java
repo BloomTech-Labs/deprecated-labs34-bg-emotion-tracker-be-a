@@ -36,7 +36,7 @@ public class Member extends Auditable
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnoreProperties(value = "member", allowSetters = true)
-    private Set<ClubMembers> club = new HashSet<>();
+    private Set<ClubMembers> clubMember = new HashSet<>();
 
     public Member()
     {
@@ -72,10 +72,10 @@ public class Member extends Auditable
     }
 
     public Set<ClubMembers> getClubs() {
-        return club;
+        return clubMember;
     }
 
     public void setClubs(Set<ClubMembers> clubs) {
-        this.club = clubs;
+        this.clubMember = clubs;
     }
 }
