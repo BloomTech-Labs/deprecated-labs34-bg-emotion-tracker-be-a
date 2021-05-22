@@ -10,8 +10,6 @@ import java.util.Optional;
 
 public interface ReactionRepository extends CrudRepository<Reactions, Long>
 {
-import org.springframework.transaction.annotation.Transactional;
-public interface ReactionRepository extends CrudRepository<Reactions, Long> {
     Reactions findByEmojinameIgnoreCase(String name);
 
     @Transactional
