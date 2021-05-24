@@ -16,14 +16,13 @@ import java.util.List;
 @RequestMapping("/reactions")
 public class ReactionController {
     @Autowired
-    ReactionRepository reactionrepos;
+    private ReactionRepository reactionrepos;
 
     @Autowired
     private ReactionsService reactionsService;
 
-    @GetMapping (value = "/reactions",
+    @GetMapping(value = "/reactions",
             produces = "appilacation/json")
-
     public ResponseEntity<?> listAllReactions(){
         List<Reactions> myReactions = reactionsService.findAll();
         return new ResponseEntity<>(myReactions, HttpStatus.OK);
