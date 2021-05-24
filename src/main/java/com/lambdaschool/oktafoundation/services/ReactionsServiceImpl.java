@@ -41,10 +41,7 @@ public class ReactionsServiceImpl implements ReactionsService {
     @Override
     public Reactions findReactionById(long id){
         return reactionrepos.findById(id)
-
                 .orElseThrow(()-> new ResourceNotFoundException("Reaction id " + id + " not found!"));
-
-
     }
 
     @Override
@@ -76,11 +73,9 @@ public class ReactionsServiceImpl implements ReactionsService {
         if(reaction.getEmojiname() == null){
             throw new ResourceNotFoundException("No reaction name found to update!");
         }
-
+      
         Reactions newReaction = findReactionById(id);
-
         reactionrepos.updateEmojiname(userAuditing.getCurrentAuditor()
-
                         .get(),
                 id, reaction.getEmojiname());
 
