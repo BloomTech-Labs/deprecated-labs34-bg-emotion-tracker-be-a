@@ -35,9 +35,6 @@ public class ReactionsServiceImpl implements ReactionsService {
                 .iterator()
                 .forEachRemaining(list::add);
 
-            .iterator()
-            .forEachRemaining(list::add);
-
         return list;
     }
 
@@ -47,7 +44,6 @@ public class ReactionsServiceImpl implements ReactionsService {
 
                 .orElseThrow(()-> new ResourceNotFoundException("Reaction id " + id + " not found!"));
 
-            .orElseThrow(()-> new ResourceNotFoundException("Reaction id " + id + " not found!"));
 
     }
 
@@ -87,9 +83,6 @@ public class ReactionsServiceImpl implements ReactionsService {
 
                         .get(),
                 id, reaction.getEmojiname());
-
-            .get(),
-            id, reaction.getEmojiname());
 
         return findReactionById(id);
     }
