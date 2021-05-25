@@ -29,7 +29,7 @@ public class Reactions extends Auditable {
     public Reactions() {
     }
 
-    public Reactions(String emojiname, String emojicode) {
+    public Reactions(String emojicode, String emojiname) {
         this.emojiname = emojiname;
         this.emojicode = emojicode;
     }

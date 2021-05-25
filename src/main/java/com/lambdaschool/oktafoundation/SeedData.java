@@ -44,6 +44,7 @@ public class SeedData
     @Autowired
     ReactionsService reactionsService;
 
+
     /**
      * Generates test, seed data for our application
      * First a set of known data is seeded into our database.
@@ -64,6 +65,7 @@ public class SeedData
         programService.deleteAll();
         reactionsService.deleteAll();
 
+
         Role r1 = new Role("superadmin");
         Role r2 = new Role("clubdir");
         Role r3 = new Role("ydp");
@@ -74,14 +76,19 @@ public class SeedData
         r3 = roleService.save(r3);
         r4 = roleService.save(r4);
 
-        Reactions re1 = new Reactions("Happy","\uD83D\uDE00");
-        Reactions re2 = new Reactions("Sad","\u2639\uFE0F");
-        Reactions re3 = new Reactions("Angry", "\uE059");
-        Reactions re4 = new Reactions("Tired", "\uD83D\uDE2A");
-        Reactions re5 = new Reactions("Sick","\uD83E\uDD12");
-        Reactions re6 = new Reactions("Didn't Like","\uD83D\uDC4E");
-        Reactions re7 = new Reactions("Mind Blown","\uD83E\uDD2F");
-        Reactions re8 = new Reactions("Like","\uD83D\uDC4D" );
+        Reactions re1 = new Reactions("1F600", "Happy");
+        Reactions re2 = new Reactions("1F62E", "Wow");
+        Reactions re3 = new Reactions("1F971", "Bored");
+        Reactions re4 = new Reactions("1F974", "Meh");
+        Reactions re5 = new Reactions("1F634", "Sleepy");
+        Reactions re6 = new Reactions("1F622", "Sad");
+        Reactions re7 = new Reactions("263A", "Embarrassed");
+        Reactions re8 = new Reactions("1F60C", "Shy");
+        Reactions re9 = new Reactions("1F60A", "Good");
+        Reactions re10 = new Reactions("1F620", "Mad");
+        Reactions re11 = new Reactions("1F915", "Sick");
+        Reactions re12 = new Reactions("1F60E", "Chill");
+
 
         re1 = reactionsService.save(re1);
         re2 = reactionsService.save(re2);
@@ -91,6 +98,10 @@ public class SeedData
         re6 = reactionsService.save(re6);
         re7 = reactionsService.save(re7);
         re8 = reactionsService.save(re8);
+        re9 = reactionsService.save(re9);
+        re10 = reactionsService.save(re10);
+        re11 = reactionsService.save(re11);
+        re12 = reactionsService.save(re12);
 
         // Super Admin
         User u1 = new User("llama001@maildrop.cc");
