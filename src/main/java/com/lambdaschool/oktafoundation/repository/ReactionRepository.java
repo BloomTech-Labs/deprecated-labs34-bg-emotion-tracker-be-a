@@ -8,7 +8,9 @@ import org.springframework.data.repository.CrudRepository;
 import javax.transaction.Transactional;
 import java.util.Optional;
 
-public interface ReactionRepository extends CrudRepository<Reactions, Long> {
+
+public interface ReactionRepository extends CrudRepository<Reactions, Long>
+{
     Reactions findByEmojinameIgnoreCase(String name);
 
     @Transactional
