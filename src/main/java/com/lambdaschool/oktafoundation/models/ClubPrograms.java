@@ -35,7 +35,7 @@ public class ClubPrograms
     @OneToMany(
             mappedBy = "clubProgram",
             cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<MemberReactions> memberReaction = new HashSet<>();
+    private Set<MemberReactions> reactions = new HashSet<>();
 
     public ClubPrograms(){
 
@@ -47,18 +47,18 @@ public class ClubPrograms
 
     }
 
-    public ClubPrograms(Club club, Program program, Set <MemberReactions> memberReactions){
+    public ClubPrograms(Club club, Program program, Set <MemberReactions> reactions){
         this.club = club;
         this.program = program;
-        this.memberReaction = memberReactions;
+        this.reactions = reactions;
     }
 
     public Set<MemberReactions> getMemberReactions() {
-        return memberReaction;
+        return reactions;
     }
 
-    public void setMemberReactions(Set<MemberReactions> memberReactions) {
-        this.memberReaction = memberReactions;
+    public void setMemberReactions(Set<MemberReactions> reactions) {
+        this.reactions = reactions;
     }
 
     public Club getClub() {

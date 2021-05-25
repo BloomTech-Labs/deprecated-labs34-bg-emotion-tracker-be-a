@@ -18,4 +18,6 @@ public interface ReactionRepository extends CrudRepository<Reactions, Long>
     @Query(value = "UPDATE reactions SET emojiname = :name, last_modified_by = :uname, last_modified_date = CURRENT_TIMESTAMP WHERE reactionid = :reactionid",
             nativeQuery = true)
     void updateEmojiname(String uname, long reactionid, String name);
+
+    Optional<Reactions> findReactionByReactionvalue(String value);
 }

@@ -14,6 +14,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 
 @RestController
@@ -71,6 +72,22 @@ public class ProgramController {
         }
     }
 
+    @PostMapping(value = "/program",
+        consumes = "application/json")
+    public ResponseEntity<?> addNewProgram(@Valid @RequestBody Program newProgram) throws URISyntaxException{
+        newProgram.setProgramid(0);
+        newProgram = programService.save(newProgram);
+
+        HttpHeaders responseHeaders = new HttpHeaders();
+        URI newProgramURI = ServletUriComponentsBuilder.fromCurrentRequest()
+            .path("?{userid}")
+            .buildAndExpand(newProgram.getProgramid())
+            .toUri();
+        responseHeaders.setLocation(newProgramURI);
+
+        return new ResponseEntity<>(null, responseHeaders, HttpStatus.CREATED);
+    }
+
     /**
      * Allows you to update a program name only
      * @param programid The primary key of the program you wish to change
@@ -88,4 +105,5 @@ public class ProgramController {
         newProgram = programService.update(programid, newProgram);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
 }

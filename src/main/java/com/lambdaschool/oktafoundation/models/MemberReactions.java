@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity(name = "MemberReaction")
 @Table(name = "memberreactions")
@@ -14,33 +17,36 @@ public class MemberReactions extends  Auditable implements Serializable {
     private long memberreactionid;
 
     @ManyToOne
-    @JoinColumn(name = "memberid")
+    @JoinColumn(name = "member_table_id")
     @JsonIgnoreProperties(value = "reactions", allowSetters = true)
     private Member member;
 
     @ManyToOne
     @JoinColumn(name = "reactionid")
-    @JsonIgnoreProperties(value = "member", allowSetters = true)
+    @JsonIgnoreProperties(value = "reactions", allowSetters = true)
     private Reactions reactions;
 
-    @Column(nullable = false)
-    private Boolean ischeckedin;
-
     @ManyToOne
-    @JoinColumns({
-            @JoinColumn(name = "programid"),
-            @JoinColumn(name = "clubid")})
+    @JoinColumns({@JoinColumn(name = "programid"),
+                  @JoinColumn(name = "clubid")})
     @JsonIgnoreProperties(value = {"reactions"}, allowSetters = true)
-    private ClubPrograms clubProgram;
-
-    public MemberReactions (Member member, Reactions reactions, Boolean ischeckedin, ClubPrograms clubPrograms) {
-        this.member = member;
-        this.reactions = reactions;
-        this.ischeckedin = ischeckedin;
-        this.clubProgram = clubPrograms;
-    }
+    private ClubPrograms clubprograms;
 
     public MemberReactions() {
+    }
+
+    public MemberReactions(Member member, Reactions reactions, ClubPrograms clubprograms) {
+        this.member = member;
+        this.reactions = reactions;
+        this.clubprograms = clubprograms;
+    }
+
+    public long getMemberreactionid() {
+        return memberreactionid;
+    }
+
+    public void setMemberreactionid(long memberreactionid) {
+        this.memberreactionid = memberreactionid;
     }
 
     public Member getMember() {
@@ -59,45 +65,30 @@ public class MemberReactions extends  Auditable implements Serializable {
         this.reactions = reactions;
     }
 
-    public Boolean getIscheckedin() {
-        return ischeckedin;
+    public ClubPrograms getClubprograms() {
+        return clubprograms;
     }
 
-    public void setIscheckedin(Boolean ischeckedin) {
-        this.ischeckedin = ischeckedin;
-    }
-
-
-    public long getMemberreactionid() {
-        return memberreactionid;
-    }
-
-    public void setMemberreactionid(long memberreactionid) {
-        this.memberreactionid = memberreactionid;
-    }
-
-    public ClubPrograms getClubProgram() {
-        return clubProgram;
-    }
-
-    public void setClubProgram(ClubPrograms clubProgram) {
-        this.clubProgram = clubProgram;
+    public void setClubprograms(ClubPrograms clubprograms) {
+        this.clubprograms = clubprograms;
     }
 
     @Override
-    public boolean equals(Object o){
-        if (this == o) return true;
-
-        if (o == null || getClass() != o.getClass()) return false;
-
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         MemberReactions that = (MemberReactions) o;
-
-        return ((member == null) ? 0 : member.getMemberid()) == ((that.member == null) ? 0 : that.member.getMemberid()) && ((reactions == null) ? 0 : reactions.getReactionid()) == ((that.reactions == null) ? 0 : that.reactions.getReactionid()) && clubProgram.equals(that.getClubProgram());
-
-
+        return ((member == null) ? 0 : member.getMemberid()) == ((that.member == null) ? 0 : that.member.getMemberid()) &&
+            ((reactions == null) ? 0 : reactions.getReactionid()) == ((that.reactions == null) ? 0 : that.reactions.getReactionid()) &&
+            clubprograms.equals(that.getClubprograms());
     }
+
     @Override
-    public int hashCode(){
-        return 44;
+    public int hashCode() {
+        return 7;
     }
 }
