@@ -9,6 +9,5 @@ import javax.transaction.Transactional;
 import java.util.Optional;
 
 public interface ClubMembersRepository extends CrudRepository<ClubMembers, Long> {
-//    Optional<ClubMembers> findClubMembersByClubIdAndMemberId(Long clubid, String memberid);
-
+    Optional<ClubMembers> findClubMembersByClub_ClubidAndMemberId_Memberid(Long clubid, String memberid);
 }

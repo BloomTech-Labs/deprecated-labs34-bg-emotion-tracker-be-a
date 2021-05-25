@@ -2,6 +2,7 @@ package com.lambdaschool.oktafoundation.models;
 
 import javax.persistence.Embeddable;
 import java.io.Serializable;
+import java.util.Objects;
 
 @Embeddable
 public class ClubProgramsId
@@ -31,25 +32,19 @@ public class ClubProgramsId
     }
 
     @Override
-    public boolean equals(Object o)
-    {
-        if (this == o)
-        {
+    public boolean equals(Object o) {
+        if (this == o) {
             return true;
         }
-        // boolean temp = (o.getClass() instanceof Class);
-        if (o == null || getClass() != o.getClass())
-        {
+        if (o == null || getClass() != o.getClass()) {
             return false;
         }
         ClubProgramsId that = (ClubProgramsId) o;
-        return club == that.club &&
-            program == that.program;
+        return getClub() == that.getClub() && getProgram() == that.getProgram();
     }
 
     @Override
-    public int hashCode()
-    {
+    public int hashCode() {
         return 7;
     }
 }

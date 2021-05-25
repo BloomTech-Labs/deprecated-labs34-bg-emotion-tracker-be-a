@@ -3,6 +3,7 @@ package com.lambdaschool.oktafoundation.services;
 import com.lambdaschool.oktafoundation.exceptions.ResourceNotFoundException;
 import com.lambdaschool.oktafoundation.models.Member;
 import com.lambdaschool.oktafoundation.models.MemberReactions;
+import com.lambdaschool.oktafoundation.models.Reactions;
 import com.lambdaschool.oktafoundation.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,32 +36,6 @@ public class MemberServiceImpl implements MemberService
     public List<Member> findByIdContaining(String partialmemberId)
     {
         return memberRepository.findMembersByMemberidContaining(partialmemberId);
-    }
-
-    @Transactional
-    @Override
-    public Member save(Member member)
-    {
-        Member newMember = new Member();
-        newMember.setMemberid(member.getMemberid());
-        memberRepository.save(newMember);
-        return newMember;
-    }
-
-    @Transactional
-    @Override
-    public Member saveNewMember(String newMember)
-    {
-
-        Member isCurrentMember = memberRepository.findMemberByMemberid(newMember);
-        if ( isCurrentMember == null )
-        {
-            Member addMember = new Member();
-            addMember.setMemberid(newMember);
-            Member addedMember = save(addMember);
-            return addedMember;
-        }
-        return isCurrentMember;
     }
 
     @Transactional
