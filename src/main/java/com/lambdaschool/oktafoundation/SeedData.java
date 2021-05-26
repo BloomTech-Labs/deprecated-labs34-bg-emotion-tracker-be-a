@@ -184,14 +184,14 @@ public class SeedData
         Program p6 = new Program("Music");
         Program p7 = new Program("Soccer");
         Program p8 = new Program("Club Checkout");
-        programService.save(p1);
-        programService.save(p2);
-        programService.save(p3);
-        programService.save(p4);
-        programService.save(p5);
-        programService.save(p6);
-        programService.save(p7);
-        programService.save(p8);
+        p1 = programService.save(p1);
+        p2 = programService.save(p2);
+        p3 = programService.save(p3);
+        p4 = programService.save(p4);
+        p5 = programService.save(p5);
+        p6 = programService.save(p6);
+        p7 = programService.save(p7);
+        p8 = programService.save(p8);
 
         Club c1 = new Club( "club1", "llama002@maildrop.cc");
         c1.getPrograms()
@@ -204,7 +204,7 @@ public class SeedData
             .add(new ClubPrograms(c1,p4));
         c1.getPrograms()
             .add(new ClubPrograms(c1,p5));
-        clubService.save(c1);
+        c1 = clubService.save(c1);
 
         Club c2 = new Club( "club2", "llama003@maildrop.cc");
         c2.getPrograms()
@@ -213,7 +213,7 @@ public class SeedData
             .add(new ClubPrograms(c2,p2));
         c2.getPrograms()
             .add(new ClubPrograms(c2,p4));
-        clubService.save(c2);
+        c2 = clubService.save(c2);
 
         Club c3 = new Club( "club3",  "llama004@maildrop.cc");
         c3.getPrograms()
@@ -224,66 +224,63 @@ public class SeedData
             .add(new ClubPrograms(c3,p3));
         c3.getPrograms()
             .add(new ClubPrograms(c3,p4));
-        clubService.save(c3);
+        c3 = clubService.save(c3);
 
         // hard coding club data for addition of programs by csv file
         // associating programs with clubname for many to many relationship
         // convert to form, CSV, or integration with stakeholder management system in future release
 
         Club c4 = new Club( "anderson", "andrew lorenzo");
-        clubService.save(c4);
+        c4 = clubService.save(c4);
         Club c5 = new Club( "grossman", "henry segovia");
-        clubService.save(c5);
+        c5 = clubService.save(c5);
         Club c6 = new Club( "jefferson", "jennifer wissusik");
-        clubService.save(c6);
+        c6 = clubService.save(c6);
         Club c7 = new Club( "johnston", "jennifer wissusik");
-        clubService.save(c7);
+        c7 = clubService.save(c7);
         Club c8 = new Club( "morton", "lisa barron");
-        clubService.save(c8);
+        c8 = clubService.save(c8);
         Club c9 = new Club( "notter", "leslie chicas");
-        clubService.save(c9);
+        c9 = clubService.save(c9);
         Club c10 = new Club( "catlin", "");
-        clubService.save(c10);
+        c10 = clubService.save(c10);
         Club c11 = new Club( "marley", "");
-        clubService.save(c11);
+        c11 = clubService.save(c11);
         Club c12 = new Club( "stelle", "");
-        clubService.save(c12);
+        c12 = clubService.save(c12);
 
-         // Trying to get this seed data below to work to test member reactions
-//        Club[] clist = {c1, c2};
-//        var ran = new Random();
-//        var allmem = memberService.findAll();
-//        ArrayList<Reactions> allreactions = new ArrayList<>();
-//        reactionRepository.findAll().iterator().forEachRemaining(allreactions::add);
-//        var cas = new ArrayList<ClubPrograms>();
-//        Arrays.stream(clist).forEach(i -> cas.addAll(i.getPrograms()));
-//
-//        for (int i = 0; i < 300; i++) {
-//            var curmem = allmem.get(ran.nextInt(allmem.size()));
-//            var curca = cas.get(ran.nextInt(cas.size()));
-//            MemberReactions mr;
-//
-//            if (curca.getProgram().getName().equals("Club Checkin") ||
-//            curca.getProgram().getName().equals("Club Checkout")) {
-//                mr = memberReactionRepository.save(new MemberReactions(
-//                        curmem, allreactions.get(ran.nextInt(allreactions.size())), curca
-//                ));
-//            } else {
-//                    mr = memberReactionRepository.save(new MemberReactions(
-//                            curmem,
-//                            allreactions.get(ran.nextInt(allreactions.size())),
-//                            curca
-//                    ));
-//            }
-//
-//            curmem.getReactions().add(mr);
-//            curmem.getClubs().add(new ClubMembers(c1, curmem));
-//            memberService.save(curmem);
-//        }
+//          Trying to get this seed data below to work to test member reactions
+        Club[] clist = {c1, c2};
+        var ran = new Random();
+        var allmem = memberService.findAll();
+        ArrayList<Reactions> allreactions = new ArrayList<>();
+        reactionRepository.findAll().iterator().forEachRemaining(allreactions::add);
+        var cas = new ArrayList<ClubPrograms>();
+        Arrays.stream(clist).forEach(i -> cas.addAll(i.getPrograms()));
 
-        var cps = new ArrayList<ClubPrograms>();
+        for (int i = 0; i < 300; i++) {
+            var curmem = allmem.get(ran.nextInt(allmem.size()));
+            var curca = cas.get(ran.nextInt(cas.size()));
+            MemberReactions mr;
 
-        MemberReactions mr = memberReactionRepository.save(new MemberReactions(m1, re1, cps.get(0)));
+            if (curca.getProgram().getName().equals("Club Checkin") ||
+            curca.getProgram().getName().equals("Club Checkout")) {
+                mr = memberReactionRepository.save(new MemberReactions(
+                        curmem, allreactions.get(ran.nextInt(allreactions.size())), curca
+                ));
+            } else {
+                    mr = memberReactionRepository.save(new MemberReactions(
+                            curmem,
+                            allreactions.get(ran.nextInt(allreactions.size())),
+                            curca
+                    ));
+            }
+
+            curmem.getReactions().add(mr);
+            curmem.getClubs().add(new ClubMembers(c1, curmem));
+            memberService.save(curmem);
+        }
+
 
 
 
