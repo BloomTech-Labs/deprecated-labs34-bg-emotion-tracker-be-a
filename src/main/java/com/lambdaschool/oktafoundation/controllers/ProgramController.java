@@ -1,18 +1,22 @@
 package com.lambdaschool.oktafoundation.controllers;
 
+
 import com.lambdaschool.oktafoundation.models.Club;
 import com.lambdaschool.oktafoundation.models.ClubPrograms;
 import com.lambdaschool.oktafoundation.models.Member;
+import com.lambdaschool.oktafoundation.exceptions.ResourceNotFoundException;
+import com.lambdaschool.oktafoundation.models.ErrorDetail;
 import com.lambdaschool.oktafoundation.models.Program;
 import com.lambdaschool.oktafoundation.repository.ClubProgramRepository;
 import com.lambdaschool.oktafoundation.repository.ClubRepository;
 import com.lambdaschool.oktafoundation.repository.MemberReactionRepository;
 import com.lambdaschool.oktafoundation.services.ProgramService;
-import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -43,6 +47,10 @@ public class ProgramController {
      * @return JSON List of all the programs
      * @see ProgramService#findAll()
      */
+    @ApiOperation(value = "returns all Programs",
+        response = Program.class,
+        responseContainer = "List")
+    @PreAuthorize ("hasAnyRole('SUPERADMIN, CLUBDIR')")
     @GetMapping(value ="/programs",
         produces = "application/json")
     public ResponseEntity<?> listPrograms(){
@@ -52,30 +60,59 @@ public class ProgramController {
 
     /**
      * The Program referenced by the given primary key
-     * @param programId The primary key (long) of the program you seek
+     * @param programid The primary key (long) of the program you seek
      * @return JSON object of the program you seek
      * @see ProgramService#findProgramById(long) ProgramService.findProgramById(long programId)
      */
+    @ApiOperation(value = "returns a program with the path parameter id",
+        response = Program.class)
+    @ApiResponses(value = {
+        @ApiResponse(code = 200,
+        message = "Program Found",
+        response = Program.class),
+        @ApiResponse(code = 404,
+        message = "Program Not Found",
+        response = ResourceNotFoundException.class)})
     @GetMapping(value = "/program/{programid}",
         produces = "application/json")
-    public ResponseEntity<?> getProgramById(@PathVariable Long programId){
-        Program p = programService.findProgramById(programId);
+    public ResponseEntity<?> getProgramById(@PathVariable Long programid){
+        Program p = programService.findProgramById(programid);
         return new ResponseEntity<>(p, HttpStatus.OK);
     }
 
     /**
      * The Program with the given name
-     * @param programName The name of the program you seek
+     * @param programname The name of the program you seek
      * @return JSON object of the program you seek
      * @see ProgramService#findByName(String) ProgramService.findByName(String programName)
      */
+    @ApiOperation(value = "returns a program with the path parameter programname",
+        response = Program.class)
+    @ApiResponses(value = {
+        @ApiResponse(code = 200,
+            message = "Program Found",
+            response = Program.class),
+        @ApiResponse(code = 404,
+            message = " Program Not Found",
+            response = ResourceNotFoundException.class)})
+    @PreAuthorize("hasAnyRole('SUPERADMIN, CLUBDIR')")
     @GetMapping(value = "/program/name/{programname}",
         produces = "applcation/json")
-    public ResponseEntity<?> getProgramByName(@PathVariable String programName){
-        Program p = programService.findByName(programName);
+    public ResponseEntity<?> getProgramByName(@PathVariable String programname){
+        Program p = programService.findByName(programname);
         return new ResponseEntity<>(p, HttpStatus.OK);
     }
 
+    @ApiOperation(value = "adds new programs to the databse from a CSV file")
+    @ApiResponses(value = {
+        @ApiResponse(code = 200,
+            message = "OK",
+            response = Program.class,
+            responseContainer = "list"),
+        @ApiResponse(code = 400,
+            message = "Bad Request",
+            response = ErrorDetail.class)})
+    @PreAuthorize("hasAnyRole('SUPERADMIN, CLUBDIR')")
     @PostMapping(value = "/upload", consumes = "multipart/form-data", produces = "application/json")
     public ResponseEntity<?> uploadPrograms(
         MultipartFile csvfile) throws Exception {
@@ -87,6 +124,7 @@ public class ProgramController {
         }
     }
 
+
     /**
      *
      * @param newProgram A complete new Program
@@ -95,6 +133,15 @@ public class ProgramController {
      * @see ProgramService.save(Program)
      */
 
+
+    @ApiOperation(value = "adds one program to the database from the request body Program Object programname")
+    @ApiResponses(value = {
+        @ApiResponse(code = 200,
+            message = "Program Created"),
+        @ApiResponse(code = 400,
+            message = "Bad Request",
+            response = ErrorDetail.class)})
+    @PreAuthorize("hasAnyRole('SUPERADMIN, CLUBDIR')")
     @PostMapping(value = "/program",
         consumes = "application/json")
     public ResponseEntity<?> addNewProgram(@Valid @RequestBody Program newProgram) throws URISyntaxException{
@@ -117,6 +164,14 @@ public class ProgramController {
      * @param newProgram The new name(String) for the program
      * @return Status OK
      */
+    @ApiOperation(value = "updates the given programid with a new program")
+    @ApiResponses(value = {
+        @ApiResponse(code = 201,
+            message = "Program Created"),
+        @ApiResponse(code = 400,
+            message = "Bad Request",
+            response = ResourceNotFoundException.class)})
+    @PreAuthorize("hasAnyRole('SUPERADMIN, CLUBDIR')")
     @PutMapping(value = "/program/{programid}",
         consumes = {"application/json"})
     public ResponseEntity<?> updateProgram(
@@ -126,7 +181,7 @@ public class ProgramController {
         @RequestBody
             Program newProgram){
         newProgram = programService.update(programid, newProgram);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(newProgram, HttpStatus.OK);
     }
 
     /**

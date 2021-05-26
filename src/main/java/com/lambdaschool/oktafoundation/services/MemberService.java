@@ -14,6 +14,8 @@ public interface MemberService
 
     Member save(Member member);
 
+    Member saveNewMember(String member);
+
     List<Member> saveNewMembers(InputStream stream) throws IOException;
 
     Member findMemberByJavaId(long id);
