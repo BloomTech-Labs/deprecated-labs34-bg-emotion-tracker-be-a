@@ -6,11 +6,13 @@ import com.lambdaschool.oktafoundation.models.Club;
 import com.lambdaschool.oktafoundation.models.ClubPrograms;
 import com.lambdaschool.oktafoundation.models.Program;
 import com.lambdaschool.oktafoundation.repository.ClubRepository;
+import com.lambdaschool.oktafoundation.repository.ProgramRepository;
 import com.lambdaschool.oktafoundation.services.ProgramService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +25,9 @@ public class ClubServiceImpl implements ClubService
 
     @Autowired
     ProgramService programService;
+
+    @Autowired
+    ProgramRepository programRepository;
 
     @Override
     public List<Club> findAll()
@@ -64,6 +69,43 @@ public class ClubServiceImpl implements ClubService
     public void deleteAll()
     {
         clubRepository.deleteAll();
+    }
+
+    @Override
+    public Club findClubById(Long clubid) throws ResourceNotFoundException{
+        return clubRepository.findById(clubid)
+                .orElseThrow(() -> new ResourceNotFoundException("Club id" + clubid + "not found!"));
+    }
+
+    @Override
+    public Club update(Club club, long clubid) {
+        Club updateClub = clubRepository.findById(clubid)
+                .orElseThrow(() -> new ResourceNotFoundException("Club" + clubid + " not found"));
+
+        // set fields
+        if (club.getClubname() != null)
+        {
+            updateClub.setClubname(club.getClubname());
+        }
+        if (club.getClubdirector() != null)
+        {
+            updateClub.setClubdirector(club.getClubdirector());
+        }
+        // set relationships
+        if(club.getPrograms().size() > 0)
+        {
+            updateClub.getPrograms()
+                    .clear();
+            for(ClubPrograms cp: club.getPrograms())
+            {
+                Program newProgram = programRepository.findById(cp.getProgram().getProgramid())
+                        .orElseThrow(() -> new EntityNotFoundException("Program" + cp.getProgram().getProgramid() + "not found"));
+
+                updateClub.getPrograms().add(new ClubPrograms(updateClub, newProgram));
+            }
+        }
+        return clubRepository.save(updateClub);
+
     }
 
 }

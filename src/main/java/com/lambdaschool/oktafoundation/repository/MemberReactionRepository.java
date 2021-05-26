@@ -9,7 +9,7 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface MemberReactionRepository extends CrudRepository<MemberReactions, Long> {
-    List<MemberReactions> getMemberReactionsByClubProgram_ClubandClibProgram_Program(Club c, Program p);
+    List<MemberReactions> getMemberReactionsByClubprograms_ClubAndClubprograms_Program(Club c, Program p);
 
     List<MemberReactions> getMemberReactionsByMember(Member m);
 }

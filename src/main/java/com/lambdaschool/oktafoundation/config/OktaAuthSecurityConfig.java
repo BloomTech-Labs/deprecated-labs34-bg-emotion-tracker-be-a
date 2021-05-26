@@ -55,11 +55,7 @@ public class OktaAuthSecurityConfig extends WebSecurityConfigurerAdapter
             .antMatchers("/roles/**")
             .hasAnyRole("ADMIN")
 
-            .antMatchers("/users/getuserinfo")
-            .authenticated()
 
-            .antMatchers("/users/user/**")
-            .authenticated()
             .antMatchers("/clubprograms/**")
             .hasAnyRole("ADMIN", "CD")
 
@@ -71,16 +67,19 @@ public class OktaAuthSecurityConfig extends WebSecurityConfigurerAdapter
             .antMatchers("/clubusers/**")
             .hasAnyRole("ADMIN", "CD")
 
-            .antMatchers("/roles/**")
-            .authenticated()
 
-            .antMatchers("/useremails/**")
-            .authenticated()
+            .antMatchers(HttpMethod.POST, "/memberreactions/**")
+                .authenticated() // YDP can POST Reactions
 
-            .antMatchers("/memberreactions/{id}")
-            .hasAnyRole("ADMIN", "CD")
             .antMatchers("/memberreactions/**")
-            .authenticated()
+            .hasAnyRole("ADMIN", "CD")// YDP cannot GET reactions
+
+
+            .antMatchers(HttpMethod.GET,"/members/**")
+                .authenticated()
+            .antMatchers("/members/**")
+                .hasAnyRole("CD", "ADMIN")
+
 
             // *** Endpoints not specified above are automatically denied
             .anyRequest()

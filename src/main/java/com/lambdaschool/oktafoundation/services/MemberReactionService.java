@@ -10,4 +10,6 @@ public interface MemberReactionService {
     MemberReactions save(MemberReactions memberReactions);
 
     MemberReactions findMemberReactionById(Long id);
+
+    MemberReactions save(MemberReactions newReaction);
 }

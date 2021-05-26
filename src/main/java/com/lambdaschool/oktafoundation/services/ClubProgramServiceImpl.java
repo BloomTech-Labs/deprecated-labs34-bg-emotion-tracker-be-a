@@ -17,6 +17,13 @@ public class ClubProgramServiceImpl implements ClubProgramService{
     private ClubProgramRepository clubprogramrepos;
 
     @Override
+    public ClubPrograms findClubProgramById(Long clubactivityid) {
+        return clubprogramrepos.findById(clubactivityid)
+                .orElseThrow(() -> new ResourceNotFoundException("Club Acitivity id" + clubactivityid
+                + "not found"));
+    }
+
+    @Override
     public List<ClubPrograms> findAll(){
         List<ClubPrograms> list = new ArrayList<>();
 
@@ -26,9 +33,9 @@ public class ClubProgramServiceImpl implements ClubProgramService{
         return list;
     }
 
-    @Override
-    public ClubPrograms findClubProgramById(Long clubprogramid) throws ResourceNotFoundException{
-        return clubprogramrepos.findById(clubprogramid)
-            .orElseThrow(()-> new ResourceNotFoundException("Club Program id " + clubprogramid + " not found!"));
-    }
+//    @Override
+//    public ClubPrograms findClubProgramById(Long clubprogramid) throws ResourceNotFoundException{
+//        return clubprogramrepos.findById(clubprogramid)
+//            .orElseThrow(()-> new ResourceNotFoundException("Club Program id " + clubprogramid + " not found!"));
+//    }
 }

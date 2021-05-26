@@ -40,7 +40,7 @@ public class MemberReactionController {
 
     // Returns a list of all the member reactions
 
-    @GetMapping (value = "/memberreactions",
+    @GetMapping(value = "/memberreactions",
         produces = "application/json")
     public ResponseEntity<?> findAllMemberReactions() {
         List<MemberReactions> allMemberReactions = memberReactionService.findAll();
@@ -55,15 +55,15 @@ public class MemberReactionController {
         return new ResponseEntity<>(memberReactions, HttpStatus.OK);
     }
 
-    @PostMapping (value = "/memberreaction/submit",
-        consumes = "application/json")
-    public ResponseEntity<?> addMemberReaction(@RequestBody MemberReactions newReaction)
-    {
-        newReaction.setMemberreactionid(0);
-        memberReactionService.save(newReaction);
-
-        return new ResponseEntity<>(newReaction, HttpStatus.CREATED);
-    }
+//    @PostMapping(value = "/memberreaction/submit",
+//        consumes = "application/json")
+//    public ResponseEntity<?> addMemberReaction(@RequestBody MemberReactions newReaction)
+//    {
+//        newReaction.setMemberreactionid(0);
+//        memberReactionService.save(newReaction);
+//
+//        return new ResponseEntity<>(newReaction, HttpStatus.CREATED);
+//    }
 
     @PreAuthorize("hasAnyRole('ADMIN','CD','YDP')")
     @PostMapping(value = "/memberreaction/submit")
@@ -90,7 +90,7 @@ public class MemberReactionController {
         }
 
 
-        var precp = clubProgramRepository.getClubProgramsByProgramIdByClubId(
+        var precp = clubProgramRepository.getClubProgramsByProgram_ProgramidAndClub_Clubid(
             aid, cid
         );
 
@@ -115,7 +115,7 @@ public class MemberReactionController {
         clubMembersRepository.save(new ClubMembers(clubRepository.findById(cid).orElseThrow(), member));
 
         Reactions currentreaction;
-        var precurrentreaction = reactionRepository.findReactionByReactionvalue(rx);
+        var precurrentreaction = reactionRepository.findReactionByEmojiname(rx);
         if (precurrentreaction.isEmpty()) {
             return new ResponseEntity<>("No such emoji", HttpStatus.NOT_ACCEPTABLE);
         } else {

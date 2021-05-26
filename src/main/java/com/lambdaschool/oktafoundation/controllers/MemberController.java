@@ -4,6 +4,7 @@ import com.lambdaschool.oktafoundation.exceptions.ResourceNotFoundException;
 import com.lambdaschool.oktafoundation.models.ErrorDetail;
 import com.lambdaschool.oktafoundation.models.Member;
 import com.lambdaschool.oktafoundation.models.MemberReactions;
+import com.lambdaschool.oktafoundation.repository.MemberRepository;
 import com.lambdaschool.oktafoundation.services.MemberService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -19,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 
 //@Api annotations added to generate custom swagger documentation
@@ -29,6 +31,9 @@ public class MemberController {
 
     @Autowired
     private MemberService memberService;
+
+    @Autowired
+    private MemberRepository memberRepository;
 
 
     @ApiOperation(value = "returns all Members",
@@ -161,7 +166,6 @@ public class MemberController {
         @RequestBody
             String newmember) {
 
-
         Member addedMember = memberService.saveNewMember(newmember);
 
         HttpHeaders responseHeaders = new HttpHeaders();
@@ -175,4 +179,35 @@ public class MemberController {
             responseHeaders,
             HttpStatus.OK);
     }
+
+    /**
+     * Given a memberID, remove the member with that ID
+     *
+     * @param mid The memberID of the member you want to delete.
+     * @throws URISyntaxException If the member doesn't exist
+     */
+//    @PreAuthorize("hasAnyRole('ADMIN', 'CD')")
+//    @DeleteMapping(value = "/removeMember/{mid}")
+//    public ResponseEntity<?> removeMember(@PathVariable String mid) throws URISyntaxException {
+//        var member = memberRepository.findById(mid).orElseThrow(() -> new ResourceNotFoundException("Member" + mid + "not found"));
+//
+//        if (member.isPresent()) {
+//
+//        }
+//    }
+
+    /**
+     * Given a list of member object with memberids, add the members to the database.
+     *
+     * @param members The list of members object you want to add
+     * @throws URISyntaxException If the member doesn't exist
+     */
+//    @PreAuthorize("hasAnyRole('ADMIN', 'CD')")
+//    @PostMapping(value = "/addMembers")
+//    public ResponseEntity<?> addMembers(@RequestBody List<Member> members) throws URISyntaxException {
+//        for (var i: members) {
+//
+//
+//        }
+//    }
 }
