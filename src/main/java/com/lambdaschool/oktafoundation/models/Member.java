@@ -42,6 +42,10 @@ public class Member extends Auditable
     {
     }
 
+    public Member(String memberid) {
+        this.memberid = memberid;
+    }
+
     public Member(long id, @NotNull String memberid) {
         this.id = id;
         this.memberid = memberid;

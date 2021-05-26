@@ -138,4 +138,9 @@ public class MemberServiceImpl implements MemberService
     public Member saveNewMember(String newmember) {
         return null;
     }
+
+    @Override
+    public void deleteAll() {
+        memberRepository.deleteAll();
+    }
 }

@@ -45,6 +45,6 @@ public class ClubProgramsId
 
     @Override
     public int hashCode() {
-        return 7;
+        return 22;
     }
 }

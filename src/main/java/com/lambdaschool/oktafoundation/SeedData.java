@@ -1,12 +1,18 @@
 package com.lambdaschool.oktafoundation;
 
 import com.lambdaschool.oktafoundation.models.*;
+import com.lambdaschool.oktafoundation.repository.MemberReactionRepository;
+import com.lambdaschool.oktafoundation.repository.ReactionRepository;
 import com.lambdaschool.oktafoundation.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Random;
 
 /**
  * SeedData puts both known and random data into the database. It implements CommandLineRunner.
@@ -44,6 +50,15 @@ public class SeedData
     @Autowired
     ReactionsService reactionsService;
 
+    @Autowired
+    MemberService memberService;
+
+    @Autowired
+    ReactionRepository reactionRepository;
+
+    @Autowired
+    MemberReactionRepository memberReactionRepository;
+
 
     /**
      * Generates test, seed data for our application
@@ -64,6 +79,8 @@ public class SeedData
         clubService.deleteAll();
         programService.deleteAll();
         reactionsService.deleteAll();
+        memberService.deleteAll();
+
 
 
         Role r1 = new Role("superadmin");
@@ -75,6 +92,16 @@ public class SeedData
         r2 = roleService.save(r2);
         r3 = roleService.save(r3);
         r4 = roleService.save(r4);
+
+        Member m1 = new Member("TestMember1");
+        Member m2 = new Member("TestMember2");
+        Member m3 = new Member("TestMember3");
+        Member m4 = new Member("TestMember4");
+
+        memberService.save(m1);
+        memberService.save(m2);
+        memberService.save(m3);
+        memberService.save(m4);
 
         Reactions re1 = new Reactions("1F600", "Happy");
         Reactions re2 = new Reactions("1F62E", "Wow");
@@ -221,5 +248,41 @@ public class SeedData
         clubService.save(c11);
         Club c12 = new Club( "stelle", "");
         clubService.save(c12);
+
+         // Trying to get this seed data below to work to test member reactions
+//        Club[] clist = {c1, c2};
+//        var ran = new Random();
+//        var allmem = memberService.findAll();
+//        ArrayList<Reactions> allreactions = new ArrayList<>();
+//        reactionRepository.findAll().iterator().forEachRemaining(allreactions::add);
+//        var cas = new ArrayList<ClubPrograms>();
+//        Arrays.stream(clist).forEach(i -> cas.addAll(i.getPrograms()));
+//
+//        for (int i = 0; i < 300; i++) {
+//            var curmem = allmem.get(ran.nextInt(allmem.size()));
+//            var curca = cas.get(ran.nextInt(cas.size()));
+//            MemberReactions mr;
+//
+//            if (curca.getProgram().getName().equals("Club Checkin") ||
+//            curca.getProgram().getName().equals("Club Checkout")) {
+//                mr = memberReactionRepository.save(new MemberReactions(
+//                        curmem, allreactions.get(ran.nextInt(allreactions.size())), curca
+//                ));
+//            } else {
+//                    mr = memberReactionRepository.save(new MemberReactions(
+//                            curmem,
+//                            allreactions.get(ran.nextInt(allreactions.size())),
+//                            curca
+//                    ));
+//            }
+//
+//            curmem.getReactions().add(mr);
+//            curmem.getClubs().add(new ClubMembers(c1, curmem));
+//            memberService.save(curmem);
+//        }
+
+
+
+
     }
 }
