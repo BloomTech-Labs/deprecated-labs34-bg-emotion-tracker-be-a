@@ -1,6 +1,8 @@
 package com.lambdaschool.oktafoundation.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -8,6 +10,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+@ApiModel(value = "ClubPrograms")
 @Entity
 @Table(name = "clubprograms")
 @IdClass(ClubProgramsId.class)
@@ -15,6 +18,10 @@ public class ClubPrograms
     extends Auditable
     implements Serializable {
 
+    @ApiModelProperty(name = "clubid",
+        value = "primary key for club",
+        required = true,
+        example = "1")
     @Id
     @ManyToOne
     @NotNull
@@ -23,6 +30,10 @@ public class ClubPrograms
         allowSetters = true)
     private Club club;
 
+    @ApiModelProperty(name = "programid",
+        value = "the primary key for program",
+        required = true,
+     example = "2")
     @Id
     @ManyToOne
     @NotNull

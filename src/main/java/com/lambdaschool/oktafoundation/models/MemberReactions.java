@@ -1,17 +1,20 @@
 package com.lambdaschool.oktafoundation.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
 
+@ApiModel (value = "MemberReaction")
 @Entity(name = "MemberReaction")
 @Table(name = "memberreactions")
 public class MemberReactions extends  Auditable implements Serializable {
-
+    @ApiModelProperty(name = "memberreactionid",
+        value = "primary key for memberreaction",
+        required = true,
+        example = "1")
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long memberreactionid;

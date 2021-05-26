@@ -1,13 +1,21 @@
 package com.lambdaschool.oktafoundation.models;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.persistence.Embeddable;
 import java.io.Serializable;
 
 @Embeddable
 public class ClubMembersId implements Serializable {
-
+    @ApiModelProperty(name = "club",
+        value = "the id of the club from ClubMembers table",
+        required = true,
+        example = "1")
     private long club;
-
+    @ApiModelProperty(name = "member",
+        value = "the id of the member from ClubMembers table",
+        required = true,
+        example = "1")
     private long member;
 
     public ClubMembersId() {

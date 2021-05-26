@@ -6,15 +6,19 @@ import com.lambdaschool.oktafoundation.models.Member;
 import com.lambdaschool.oktafoundation.repository.ClubMembersRepository;
 import com.lambdaschool.oktafoundation.repository.ClubRepository;
 import com.lambdaschool.oktafoundation.services.ClubService;
-import com.lambdaschool.oktafoundation.services.MemberService;
-import com.lambdaschool.oktafoundation.services.UserService;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
 
 import javax.validation.Valid;
 import java.net.URI;
@@ -22,7 +26,7 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/clubs")
+@Api (value = "/clubs")
 public class ClubController {
     @Autowired
     private ClubRepository clubRepository;
@@ -30,24 +34,12 @@ public class ClubController {
     @Autowired
     private ClubService clubService;
 
-    @Autowired
-    private UserService userService;
 
-    @Autowired
-    private ClubMembersRepository clubMembersRepository;
-
-    @Autowired
-    private MemberService memberService;
-
-    /**
-     * Returns a list of all clubs
-     * Example: "http://localhost:2019/clubs/clubs
-     * @return JSON list of all Clubs with status of OK
-     * @see ClubService findAll()
-     */
-    @PreAuthorize("hasAnyRole('ADMIN', 'CD')")
-    @GetMapping(value = "/clubs",
-        produces = "application/json")
+    @RequestMapping(value = "/clubs", method = RequestMethod.GET, produces = "application/json")
+    @ApiOperation(value = "returns a list of all clubs",
+        response = Club.class,
+        responseContainer = "List")
+    @PreAuthorize("hasAnyRole('SUPERADMIN, CLUBDIR')")
     public ResponseEntity<?> listAllClubs() {
         List<Club> myClubs = clubService.findAll();
         return new ResponseEntity<>(myClubs, HttpStatus.OK);

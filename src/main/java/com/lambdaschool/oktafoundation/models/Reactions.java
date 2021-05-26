@@ -1,10 +1,12 @@
 package com.lambdaschool.oktafoundation.models;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+@ApiModel(value = "Reactions")
 @Entity
 @Table (name = "reactions")
 public class Reactions extends Auditable {
