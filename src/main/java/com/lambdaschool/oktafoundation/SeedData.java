@@ -83,8 +83,8 @@ public class SeedData
 
 
 
-        Role r1 = new Role("superadmin");
-        Role r2 = new Role("clubdir");
+        Role r1 = new Role("admin");
+        Role r2 = new Role("cd");
         Role r3 = new Role("ydp");
         Role r4 = new Role("user");
 
@@ -194,35 +194,35 @@ public class SeedData
         p8 = programService.save(p8);
 
         Club c1 = new Club( "club1", "llama002@maildrop.cc");
-        c1.getPrograms()
+        c1.getProgram()
             .add(new ClubPrograms(c1,p1));
-        c1.getPrograms()
+        c1.getProgram()
             .add(new ClubPrograms(c1,p2));
-        c1.getPrograms()
+        c1.getProgram()
             .add(new ClubPrograms(c1,p3));
-        c1.getPrograms()
+        c1.getProgram()
             .add(new ClubPrograms(c1,p4));
-        c1.getPrograms()
+        c1.getProgram()
             .add(new ClubPrograms(c1,p5));
         c1 = clubService.save(c1);
 
         Club c2 = new Club( "club2", "llama003@maildrop.cc");
-        c2.getPrograms()
+        c2.getProgram()
             .add(new ClubPrograms(c2,p1));
-        c2.getPrograms()
+        c2.getProgram()
             .add(new ClubPrograms(c2,p2));
-        c2.getPrograms()
+        c2.getProgram()
             .add(new ClubPrograms(c2,p4));
         c2 = clubService.save(c2);
 
         Club c3 = new Club( "club3",  "llama004@maildrop.cc");
-        c3.getPrograms()
+        c3.getProgram()
             .add(new ClubPrograms(c3,p1));
-        c3.getPrograms()
+        c3.getProgram()
             .add(new ClubPrograms(c3,p2));
-        c3.getPrograms()
+        c3.getProgram()
             .add(new ClubPrograms(c3,p3));
-        c3.getPrograms()
+        c3.getProgram()
             .add(new ClubPrograms(c3,p4));
         c3 = clubService.save(c3);
 
@@ -256,7 +256,7 @@ public class SeedData
         ArrayList<Reactions> allreactions = new ArrayList<>();
         reactionRepository.findAll().iterator().forEachRemaining(allreactions::add);
         var cas = new ArrayList<ClubPrograms>();
-        Arrays.stream(clist).forEach(i -> cas.addAll(i.getPrograms()));
+        Arrays.stream(clist).forEach(i -> cas.addAll(i.getProgram()));
 
         for (int i = 0; i < 300; i++) {
             var curmem = allmem.get(ran.nextInt(allmem.size()));

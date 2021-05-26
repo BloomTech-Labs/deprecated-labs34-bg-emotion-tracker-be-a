@@ -28,7 +28,7 @@ public class ReactionController {
     @ApiOperation(value = "returns all emojis",
         response = Reactions.class,
         responseContainer = "List")
-    @PreAuthorize("hasAnyRole('SUPERADMIN, CLUBDIR')")
+    @PreAuthorize("hasAnyRole('ADMIN, CD')")
     public ResponseEntity<?> listAllReactions(){
         List<Reactions> myReactions = reactionsService.findAll();
         return new ResponseEntity<>(myReactions, HttpStatus.OK);

@@ -51,7 +51,7 @@ public class ProgramController {
     @ApiOperation(value = "returns all Programs",
         response = Program.class,
         responseContainer = "List")
-    @PreAuthorize ("hasAnyRole('SUPERADMIN, CLUBDIR')")
+    @PreAuthorize ("hasAnyRole('ADMIN, CD')")
     public ResponseEntity<?> listPrograms(){
         List<Program> allPrograms = programService.findAll();
         return new ResponseEntity<>(allPrograms, HttpStatus.OK);
@@ -94,7 +94,7 @@ public class ProgramController {
         @ApiResponse(code = 404,
             message = " Program Not Found",
             response = ResourceNotFoundException.class)})
-    @PreAuthorize("hasAnyRole('SUPERADMIN, CLUBDIR')")
+    @PreAuthorize("hasAnyRole('ADMIN, CD')")
     public ResponseEntity<?> getProgramByName(@PathVariable String programname){
         Program p = programService.findByName(programname);
         return new ResponseEntity<>(p, HttpStatus.OK);
@@ -110,7 +110,7 @@ public class ProgramController {
         @ApiResponse(code = 400,
             message = "Bad Request",
             response = ErrorDetail.class)})
-    @PreAuthorize("hasAnyRole('SUPERADMIN, CLUBDIR')")
+    @PreAuthorize("hasAnyRole('ADMIN, CD')")
     public ResponseEntity<?> uploadPrograms(
         MultipartFile csvfile) throws Exception {
         List<Program> addedPrograms = programService.saveNewPrograms(csvfile.getInputStream());
@@ -121,7 +121,7 @@ public class ProgramController {
         }
     }
 
-<
+
     @RequestMapping(value = "/program", method = RequestMethod.POST, consumes = "application/json")
     @ApiOperation(value = "adds one program to the database from the request body Program Object programname")
     @ApiResponses(value = {
@@ -130,7 +130,7 @@ public class ProgramController {
         @ApiResponse(code = 400,
             message = "Bad Request",
             response = ErrorDetail.class)})
-    @PreAuthorize("hasAnyRole('SUPERADMIN, CLUBDIR')")
+    @PreAuthorize("hasAnyRole('ADMIN, CD')")
     public ResponseEntity<?> addNewProgram(@Valid @RequestBody Program newProgram) throws URISyntaxException{
         newProgram.setProgramid(0);
         newProgram = programService.save(newProgram);
@@ -159,7 +159,7 @@ public class ProgramController {
         @ApiResponse(code = 400,
             message = "Bad Request",
             response = ResourceNotFoundException.class)})
-    @PreAuthorize("hasAnyRole('SUPERADMIN, CLUBDIR')")
+    @PreAuthorize("hasAnyRole('ADMIN, CD')")
     public ResponseEntity<?> updateProgram(
         @PathVariable
             long programid,
@@ -191,7 +191,7 @@ public class ProgramController {
         }
         Club club = clubRepository.findById(clubid).orElseThrow();
         ClubPrograms temp = new ClubPrograms(club, newprogram);
-        club.getPrograms().add(temp);
+        club.getProgram().add(temp);
         clubRepository.save(club);
         return new ResponseEntity<>(HttpStatus.OK);
     }

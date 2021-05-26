@@ -29,7 +29,7 @@ public class ClubProgramController {
     @ApiOperation(value = "Returns all club activities",
             response = ClubPrograms.class,
     responseContainer = "List")
-    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'CD')")
     @GetMapping(value = "/clubprograms", produces = "application/json")
     public ResponseEntity<?> listAllClubPrograms(){
         List<ClubPrograms> allClubPrograms = clubProgramService.findAll();

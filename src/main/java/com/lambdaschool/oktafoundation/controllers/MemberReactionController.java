@@ -48,8 +48,7 @@ public class MemberReactionController {
     @ApiOperation(value = "returns all the members reactions",
         response = MemberReactions.class,
         responseContainer = "List")
-    @PreAuthorize("hasAnyRole('SUPERADMIN, CLUBDIR')")
-
+    @PreAuthorize("hasAnyRole('ADMIN, CD')")
     public ResponseEntity<?> findAllMemberReactions() {
         List<MemberReactions> allMemberReactions = memberReactionService.findAll();
         return new ResponseEntity<>(allMemberReactions, HttpStatus.OK);
@@ -66,7 +65,7 @@ public class MemberReactionController {
         @ApiResponse(code = 404,
             message = "Member Not Found",
             response = ResourceNotFoundException.class)})
-    @PreAuthorize("hasAnyRole('SUPERADMIN, CLUBDIR')")
+    @PreAuthorize("hasAnyRole('ADMIN, CD')")
     public ResponseEntity<?> findMemberReactionById(@PathVariable Long id) {
         MemberReactions memberReactions = memberReactionService.findMemberReactionById(id);
         return new ResponseEntity<>(memberReactions, HttpStatus.OK);

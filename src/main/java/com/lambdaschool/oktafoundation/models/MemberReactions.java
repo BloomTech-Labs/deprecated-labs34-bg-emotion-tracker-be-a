@@ -21,7 +21,7 @@ public class MemberReactions extends  Auditable implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "member_table_id")
-    @JsonIgnoreProperties(value = "reactions", allowSetters = true)
+    @JsonIgnoreProperties(value = "member", allowSetters = true)
     private Member member;
 
     @ManyToOne

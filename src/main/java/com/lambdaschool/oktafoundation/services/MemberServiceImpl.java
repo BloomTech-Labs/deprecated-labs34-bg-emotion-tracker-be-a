@@ -141,10 +141,10 @@ public class MemberServiceImpl implements MemberService
         return mm;
     }
 
-    @Override
-    public Member save(Member member){
-        return memberRepository.save(member);
-    }
+//    @Override
+//    public Member save(Member member){
+//        return memberRepository.save(member);
+//    }
 
 
     @Override
@@ -154,11 +154,11 @@ public class MemberServiceImpl implements MemberService
             .orElseThrow(() -> new ResourceNotFoundException("Member id" + id + " Not Found"));
         memberRepository.deleteById(id);
     }
-
-    @Override
-    public Member saveNewMember(String newmember) {
-        return null;
-    }
+//
+//    @Override
+//    public Member saveNewMember(String newmember) {
+//        return null;
+//    }
 
     @Override
     public void deleteAll() {
