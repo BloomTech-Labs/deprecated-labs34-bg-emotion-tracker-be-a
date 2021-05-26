@@ -20,7 +20,7 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/programs")
+@Api(value = "/programs")
 public class ProgramController {
     @Autowired
     ProgramService programService;
@@ -30,12 +30,11 @@ public class ProgramController {
      * @return JSON List of all the programs
      * @see ProgramService#findAll()
      */
+    @RequestMapping(value = "/programs", method = RequestMethod.GET, produces = "application/json")
     @ApiOperation(value = "returns all Programs",
         response = Program.class,
         responseContainer = "List")
     @PreAuthorize ("hasAnyRole('SUPERADMIN, CLUBDIR')")
-    @GetMapping(value ="/programs",
-        produces = "application/json")
     public ResponseEntity<?> listPrograms(){
         List<Program> allPrograms = programService.findAll();
         return new ResponseEntity<>(allPrograms, HttpStatus.OK);
@@ -47,6 +46,7 @@ public class ProgramController {
      * @return JSON object of the program you seek
      * @see ProgramService#findProgramById(long) ProgramService.findProgramById(long programId)
      */
+    @RequestMapping(value = "/program/{programid}", method = RequestMethod.GET, produces = "application/json")
     @ApiOperation(value = "returns a program with the path parameter id",
         response = Program.class)
     @ApiResponses(value = {
@@ -56,8 +56,6 @@ public class ProgramController {
         @ApiResponse(code = 404,
         message = "Program Not Found",
         response = ResourceNotFoundException.class)})
-    @GetMapping(value = "/program/{programid}",
-        produces = "application/json")
     public ResponseEntity<?> getProgramById(@PathVariable Long programid){
         Program p = programService.findProgramById(programid);
         return new ResponseEntity<>(p, HttpStatus.OK);
@@ -69,6 +67,7 @@ public class ProgramController {
      * @return JSON object of the program you seek
      * @see ProgramService#findByName(String) ProgramService.findByName(String programName)
      */
+    @RequestMapping(value = "/program/name/{programname}", method = RequestMethod.GET, produces = "application/json")
     @ApiOperation(value = "returns a program with the path parameter programname",
         response = Program.class)
     @ApiResponses(value = {
@@ -79,13 +78,12 @@ public class ProgramController {
             message = " Program Not Found",
             response = ResourceNotFoundException.class)})
     @PreAuthorize("hasAnyRole('SUPERADMIN, CLUBDIR')")
-    @GetMapping(value = "/program/name/{programname}",
-        produces = "applcation/json")
     public ResponseEntity<?> getProgramByName(@PathVariable String programname){
         Program p = programService.findByName(programname);
         return new ResponseEntity<>(p, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/upload", method = RequestMethod.POST, consumes = "multipart/form-data", produces = "application/json")
     @ApiOperation(value = "adds new programs to the databse from a CSV file")
     @ApiResponses(value = {
         @ApiResponse(code = 200,
@@ -96,7 +94,6 @@ public class ProgramController {
             message = "Bad Request",
             response = ErrorDetail.class)})
     @PreAuthorize("hasAnyRole('SUPERADMIN, CLUBDIR')")
-    @PostMapping(value = "/upload", consumes = "multipart/form-data", produces = "application/json")
     public ResponseEntity<?> uploadPrograms(
         MultipartFile csvfile) throws Exception {
         List<Program> addedPrograms = programService.saveNewPrograms(csvfile.getInputStream());
@@ -107,6 +104,7 @@ public class ProgramController {
         }
     }
 
+    @RequestMapping(value = "/program", method = RequestMethod.POST, consumes = "application/json")
     @ApiOperation(value = "adds one program to the database from the request body Program Object programname")
     @ApiResponses(value = {
         @ApiResponse(code = 200,
@@ -115,8 +113,6 @@ public class ProgramController {
             message = "Bad Request",
             response = ErrorDetail.class)})
     @PreAuthorize("hasAnyRole('SUPERADMIN, CLUBDIR')")
-    @PostMapping(value = "/program",
-        consumes = "application/json")
     public ResponseEntity<?> addNewProgram(@Valid @RequestBody Program newProgram) throws URISyntaxException{
         newProgram.setProgramid(0);
         newProgram = programService.save(newProgram);
@@ -137,6 +133,7 @@ public class ProgramController {
      * @param newProgram The new name(String) for the program
      * @return Status OK
      */
+    @RequestMapping(value ="/program/{programid}", method = RequestMethod.PUT, consumes = "application/json")
     @ApiOperation(value = "updates the given programid with a new program")
     @ApiResponses(value = {
         @ApiResponse(code = 201,
@@ -145,8 +142,6 @@ public class ProgramController {
             message = "Bad Request",
             response = ResourceNotFoundException.class)})
     @PreAuthorize("hasAnyRole('SUPERADMIN, CLUBDIR')")
-    @PutMapping(value = "/program/{programid}",
-        consumes = {"application/json"})
     public ResponseEntity<?> updateProgram(
         @PathVariable
             long programid,

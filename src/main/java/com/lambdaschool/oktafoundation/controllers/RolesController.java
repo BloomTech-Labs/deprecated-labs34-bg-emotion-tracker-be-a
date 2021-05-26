@@ -1,7 +1,13 @@
 package com.lambdaschool.oktafoundation.controllers;
 
+import com.lambdaschool.oktafoundation.exceptions.ResourceNotFoundException;
+import com.lambdaschool.oktafoundation.models.ErrorDetail;
 import com.lambdaschool.oktafoundation.models.Role;
 import com.lambdaschool.oktafoundation.services.RoleService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -23,7 +29,7 @@ import java.util.List;
  * we will be fixing that!
  */
 @RestController
-@RequestMapping("/roles")
+@Api (value ="/roles")
 public class RolesController
 {
     /**
@@ -39,8 +45,10 @@ public class RolesController
      * @return JSON List of all the roles and their associated users
      * @see RoleService#findAll() RoleService.findAll()
      */
-    @GetMapping(value = "/roles",
-        produces = "application/json")
+    @RequestMapping(value = "/roles", method = RequestMethod.GET, produces = "application/json")
+    @ApiOperation(value = "returns all the roles",
+        response = Role.class,
+        responseContainer = "List")
     public ResponseEntity<?> listRoles()
     {
         List<Role> allRoles = roleService.findAll();
@@ -56,8 +64,15 @@ public class RolesController
      * @return JSON object of the role you seek
      * @see RoleService#findRoleById(long) RoleService.findRoleById(long)
      */
-    @GetMapping(value = "/role/{roleId}",
-        produces = "application/json")
+    @RequestMapping(value = "/role/{roleId}", method = RequestMethod.GET, produces = "application/json")
+    @ApiOperation(value = "returns a role with the path parameter of roleId")
+    @ApiResponses(value = {
+        @ApiResponse(code = 200,
+            message = "Role Found",
+            response = Role.class),
+        @ApiResponse(code = 404,
+            message = "Role Not Found",
+            response = ResourceNotFoundException.class)})
     public ResponseEntity<?> getRoleById(
         @PathVariable
             Long roleId)
@@ -75,8 +90,15 @@ public class RolesController
      * @return JSON object of the role you seek
      * @see RoleService#findByName(String) RoleService.findByName(String)
      */
-    @GetMapping(value = "/role/name/{roleName}",
-        produces = "application/json")
+    @RequestMapping(value = "/role/name/{roleName}", method = RequestMethod.GET, produces = "application/json")
+    @ApiOperation(value = " return a role with the path parmeter of roleName")
+    @ApiResponses(value = {
+        @ApiResponse(code = 200,
+            message = "Role Found",
+            response = Role.class),
+        @ApiResponse(code = 404,
+            message = "Role NotFound",
+            response = ResourceNotFoundException.class)})
     public ResponseEntity<?> getRoleByName(
         @PathVariable
             String roleName)
@@ -94,8 +116,14 @@ public class RolesController
      * @return A location header with the URI to the newly created role and a status of CREATED
      * @see RoleService#save(Role) RoleService.save(Role)
      */
-    @PostMapping(value = "/role",
-        consumes = "application/json")
+    @RequestMapping(value = "/role", method = RequestMethod.POST, consumes = "application/json")
+    @ApiOperation(value = "adds one role to the datbase from the request body Role newRole")
+    @ApiResponses(value = {
+        @ApiResponse(code = 201,
+            message = "Role Created"),
+        @ApiResponse(code = 400,
+            message = "Bad Request",
+            response = ErrorDetail.class)})
     public ResponseEntity<?> addNewRole(
         @Valid
         @RequestBody
@@ -126,9 +154,18 @@ public class RolesController
      * @param newRole The new name (String) for the role
      * @return Status of OK
      */
+    @RequestMapping(value = "/role/{roleid}", method = RequestMethod.PUT, consumes = "application/json")
+    @ApiOperation(value = "updates the role at the path parameter rolid")
+    @ApiResponses(value = {
+        @ApiResponse(code = 200,
+            message = "Role Found",
+            response = Role.class),
+        @ApiResponse(code = 201,
+        message = "Role Created"),
+        @ApiResponse(code = 404,
+            message = "Role Not Found",
+            response = ResourceNotFoundException.class)})
     @PreAuthorize("hasAnyRole('ADMIN')")
-    @PutMapping(value = "/role/{roleid}",
-        consumes = {"application/json"})
     public ResponseEntity<?> putUpdateRole(
         @PathVariable
             long roleid,

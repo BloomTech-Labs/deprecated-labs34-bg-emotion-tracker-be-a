@@ -3,12 +3,8 @@ package com.lambdaschool.oktafoundation.controllers;
 import com.lambdaschool.oktafoundation.exceptions.ResourceNotFoundException;
 import com.lambdaschool.oktafoundation.models.ErrorDetail;
 import com.lambdaschool.oktafoundation.models.Member;
-import com.lambdaschool.oktafoundation.models.MemberReactions;
 import com.lambdaschool.oktafoundation.services.MemberService;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -24,25 +20,24 @@ import java.util.List;
 //@Api annotations added to generate custom swagger documentation
 
 @RestController
-@RequestMapping("/members")
+@Api(value = "members")
 public class MemberController {
 
     @Autowired
     private MemberService memberService;
 
-
+    @RequestMapping(value = "/members", method = RequestMethod.GET, produces = "application/json")
     @ApiOperation(value = "returns all Members",
         response = Member.class,
         responseContainer = "List")
     @PreAuthorize("hasAnyRole('SUPERADMIN, CLUBDIR')")
-    @GetMapping(value = "/members",
-        produces = "application/json")
     public ResponseEntity<?> listAllMembers() {
         List<Member> myMembers = memberService.findAll();
         return new ResponseEntity<>(myMembers,
             HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/upload", method = RequestMethod.POST, consumes = "multipart/form-data", produces = "application/json")
     @ApiOperation(value = "adds new members to the database from a CSV file")
     @ApiResponses(value = {
         @ApiResponse(code = 200,
@@ -53,7 +48,6 @@ public class MemberController {
             message = "Bad Request",
             response = ErrorDetail.class)})
     @PreAuthorize("hasAnyRole('SUPERADMIN, CLUBDIR')")
-    @PostMapping(value = "/upload", consumes = "multipart/form-data", produces = "application/json")
     public ResponseEntity<?> uploadMembers(
         @ApiParam(value = "a CSV file of memberid strings",
             required = true)
@@ -63,6 +57,7 @@ public class MemberController {
 
     }
 
+    @RequestMapping(value = "/member/{javaId}", method = RequestMethod.GET, produces = "application/json")
     @ApiOperation(value = "returns a member with the path parameter id",
         response = Member.class)
     @ApiResponses(value = {
@@ -73,8 +68,6 @@ public class MemberController {
             message = "Member Not Found",
             response = ResourceNotFoundException.class)})
     @PreAuthorize("hasAnyRole('SUPERADMIN, CLUBDIR')")
-    @GetMapping(value = "/member/{javaId}",
-        produces = "application/json")
     public ResponseEntity<?> getMemberByJavaId(
         @ApiParam(value = "member id",
             required = true,
@@ -86,6 +79,7 @@ public class MemberController {
         return new ResponseEntity<>(m, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/member/id/{memberid}", method = RequestMethod.GET, produces = "application/json")
     @ApiOperation(value = "returns a member from the path parameter memberid string",
         response = Member.class)
     @ApiResponses(value = {
@@ -96,17 +90,16 @@ public class MemberController {
             message = "Member Not Found",
             response = ResourceNotFoundException.class)})
     @PreAuthorize("hasAnyRole('SUPERADMIN, CLUBDIR')")
-    @GetMapping(value = "/member/id/{memberId}",
-        produces = "application/json")
     public ResponseEntity<?> getMemberByMemberId(
         @ApiParam(value = "memberid",
             required = true,
             example = "m1234567id")
-        @PathVariable String memberId) {
-        Member m = memberService.findMemberByStringId(memberId);
+        @PathVariable String memberid) {
+        Member m = memberService.findMemberByStringId(memberid);
         return new ResponseEntity<>(m, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/member/id/like/{partialmemberId}", method = RequestMethod.GET, produces = "application/json")
     @ApiOperation(value = "returns a list of members with ids matching partial id string path parameter",
         response = Member.class,
         responseContainer = "List")
@@ -117,8 +110,6 @@ public class MemberController {
             responseContainer = "List")
     })
     @PreAuthorize("hasAnyRole('SUPERADMIN, CLUBDIR')")
-    @GetMapping(value = "/member/id/like/{partialmemberId}",
-        produces = "application/json")
     public ResponseEntity<?> getMemberLikeId(
         @ApiParam(value = "partial memberid",
             required = true,
@@ -128,6 +119,7 @@ public class MemberController {
         return new ResponseEntity<>(m, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/memebr/{javaId}", method = RequestMethod.DELETE)
     @ApiOperation(value = "deletes a member with the memberid")
     @ApiResponses(value = {
         @ApiResponse(code = 200,
@@ -135,7 +127,6 @@ public class MemberController {
         @ApiResponse(code = 404,
             message = "Member Not Found",
             response = ResourceNotFoundException.class)})
-    @DeleteMapping(value = "/member/{javaId}")
     public ResponseEntity<?> deleteMemberByJavaId(
         @ApiParam(value = "member id",
             required = true,
@@ -146,6 +137,7 @@ public class MemberController {
 
     }
 
+    @RequestMapping(value = "/member", method = RequestMethod.POST, consumes = "application/json")
     @ApiOperation(value = "adds one member to the database from the request body string memberid")
     @ApiResponses(value = {
         @ApiResponse(code = 201,
@@ -153,8 +145,6 @@ public class MemberController {
         @ApiResponse(code = 400,
             message = "Bad Request",
             response = ErrorDetail.class)})
-    @PostMapping(value = "/member",
-        consumes = "application/json")
     public ResponseEntity<?> addNewMember(
         @ApiParam(value = "a memberid string",
             required = true)

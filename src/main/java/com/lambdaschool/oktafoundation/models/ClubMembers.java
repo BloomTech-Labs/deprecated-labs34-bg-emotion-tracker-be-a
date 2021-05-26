@@ -1,15 +1,24 @@
 package com.lambdaschool.oktafoundation.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
+
+@ApiModel(value = "ClubMembers",
+    description = "A join table for a club member record with primary key club and primary key member")
 @Entity
 @Table(name = "clubmembers")
 @IdClass(ClubMembersId.class)
 public class ClubMembers extends  Auditable implements Serializable {
+    @ApiModelProperty(name = "clubid",
+        value = "the primary key for the club",
+        required = true,
+        example = "1")
     @Id
     @ManyToOne
     @NotNull
@@ -17,6 +26,10 @@ public class ClubMembers extends  Auditable implements Serializable {
     @JsonIgnoreProperties(value = {"members", "programs", "users"}, allowSetters = true)
     private Club club;
 
+    @ApiModelProperty(name = "memberid",
+        value = "the primary key for the member",
+        required = true,
+        example = "2")
     @Id
     @ManyToOne
     @NotNull
