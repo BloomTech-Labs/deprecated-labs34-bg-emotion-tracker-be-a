@@ -32,6 +32,22 @@ public class MemberServiceImpl implements MemberService
         return list;
     }
 
+    @Transactional
+    @Override
+    public Member saveNewMember(String newMember)
+    {
+
+        Member isCurrentMember = memberRepository.findMemberByMemberid(newMember);
+        if ( isCurrentMember == null )
+        {
+            Member addMember = new Member();
+            addMember.setMemberid(newMember);
+            Member addedMember = save(addMember);
+            return addedMember;
+        }
+        return isCurrentMember;
+    }
+
     @Override
     public List<Member> findByIdContaining(String partialmemberId)
     {
