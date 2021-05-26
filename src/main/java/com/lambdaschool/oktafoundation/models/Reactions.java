@@ -1,19 +1,33 @@
 package com.lambdaschool.oktafoundation.models;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
 @Table (name = "reactions")
 public class Reactions extends Auditable {
+    @ApiModelProperty(name = "reactionid",
+        value = "primary key for reactions",
+        required = true,
+        example = "1")
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long reactionid;
 
+    @ApiModelProperty(name = "emojiname",
+        value = "name of the emoji",
+        required = true,
+        example = "Happy")
     @NotNull
     @Column(unique = true)
     private String emojiname;
 
+    @ApiModelProperty(name = "emojicode",
+        value = "the unicode value that represents the emoji",
+        required = true,
+        example = "1F600")
     @NotNull
     @Column(unique = true)
     private String emojicode;
