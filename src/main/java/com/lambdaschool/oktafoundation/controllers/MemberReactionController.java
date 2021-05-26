@@ -49,6 +49,7 @@ public class MemberReactionController {
         response = MemberReactions.class,
         responseContainer = "List")
     @PreAuthorize("hasAnyRole('SUPERADMIN, CLUBDIR')")
+
     public ResponseEntity<?> findAllMemberReactions() {
         List<MemberReactions> allMemberReactions = memberReactionService.findAll();
         return new ResponseEntity<>(allMemberReactions, HttpStatus.OK);
@@ -70,6 +71,7 @@ public class MemberReactionController {
         MemberReactions memberReactions = memberReactionService.findMemberReactionById(id);
         return new ResponseEntity<>(memberReactions, HttpStatus.OK);
     }
+
 
     @RequestMapping(value = "/memberreaction/submit", method = RequestMethod.POST, consumes = "application/json")
     @ApiOperation(value = "adds a member reaction to a program")
@@ -104,7 +106,7 @@ public class MemberReactionController {
         }
 
 
-        var precp = clubProgramRepository.getClubProgramsByProgramIdByClubId(
+        var precp = clubProgramRepository.getClubProgramsByProgram_ProgramidAndClub_Clubid(
             aid, cid
         );
 
@@ -129,7 +131,7 @@ public class MemberReactionController {
         clubMembersRepository.save(new ClubMembers(clubRepository.findById(cid).orElseThrow(), member));
 
         Reactions currentreaction;
-        var precurrentreaction = reactionRepository.findReactionByReactionvalue(rx);
+        var precurrentreaction = reactionRepository.findReactionByEmojiname(rx);
         if (precurrentreaction.isEmpty()) {
             return new ResponseEntity<>("No such emoji", HttpStatus.NOT_ACCEPTABLE);
         } else {

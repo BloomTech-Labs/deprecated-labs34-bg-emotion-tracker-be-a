@@ -45,6 +45,11 @@ public class Club extends Auditable
         allowSetters = true)
     private Set<ClubPrograms> program = new HashSet<>();
 
+    @OneToMany(mappedBy = "club", cascade = CascadeType.ALL,
+    orphanRemoval = true)
+    @JsonIgnoreProperties(value = "club", allowSetters = true)
+    private Set<ClubMembers> members = new HashSet<>();
+
     public Club()
     {
     }

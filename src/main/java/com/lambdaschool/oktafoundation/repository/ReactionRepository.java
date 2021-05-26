@@ -19,5 +19,5 @@ public interface ReactionRepository extends CrudRepository<Reactions, Long>
             nativeQuery = true)
     void updateEmojiname(String uname, long reactionid, String name);
 
-    Optional<Reactions> findReactionByReactionvalue(String value);
+    Optional<Reactions> findReactionByEmojiname(String emojiname);
 }

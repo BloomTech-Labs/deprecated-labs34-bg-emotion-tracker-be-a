@@ -22,6 +22,9 @@ public class MemberServiceImpl implements MemberService
     @Autowired
     private MemberRepository memberRepository;
 
+    @Autowired
+    private ReactionsService reactionsService;
+
     @Override
     public List<Member> findAll()
     {
@@ -46,6 +49,33 @@ public class MemberServiceImpl implements MemberService
             return addedMember;
         }
         return isCurrentMember;
+    }
+
+    @Override
+    public Member save(Member member) {
+        Member newMember = new Member();
+
+        if (member.getId() != 0) {
+            memberRepository.findById(member.getId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Member id " + member.getMemberid() + " not found"));
+            newMember.setId(member.getId());
+        }
+
+        // if the member id is already in the database, return it, no new member is created
+//        var temp = memberRepository.findMemberByMemberid(member.getMemberid());
+//        if (temp.isPresent()) {
+//            return temp.get();
+//        }
+
+        newMember.setMemberid(member.getMemberid());
+
+        // Relationships
+        newMember.getReactions().clear();
+        for (MemberReactions mr : member.getReactions()) {
+            Reactions addReactions = reactionsService.findReactionById(mr.getReactions().getReactionid());
+            newMember.getReactions().add(new MemberReactions(newMember, addReactions, mr.getClubprograms()));
+        }
+        return memberRepository.save(newMember);
     }
 
     @Override
@@ -123,5 +153,15 @@ public class MemberServiceImpl implements MemberService
         memberRepository.findById(id)
             .orElseThrow(() -> new ResourceNotFoundException("Member id" + id + " Not Found"));
         memberRepository.deleteById(id);
+    }
+
+    @Override
+    public Member saveNewMember(String newmember) {
+        return null;
+    }
+
+    @Override
+    public void deleteAll() {
+        memberRepository.deleteAll();
     }
 }

@@ -22,4 +22,6 @@ public interface MemberReactionService {
      * @return The given MemberReaction or throws an exception if not found
      */
     MemberReactions findMemberReactionById(Long id);
+
+    MemberReactions save(MemberReactions newReaction);
 }

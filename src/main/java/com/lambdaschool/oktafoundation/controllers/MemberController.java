@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 
 //@Api annotations added to generate custom swagger documentation
@@ -27,6 +28,7 @@ public class MemberController {
     private MemberService memberService;
 
     @RequestMapping(value = "/members", method = RequestMethod.GET, produces = "application/json")
+
     @ApiOperation(value = "returns all Members",
         response = Member.class,
         responseContainer = "List")
@@ -150,7 +152,6 @@ public class MemberController {
             required = true)
         @RequestBody
             String newmember) {
-
 
         Member addedMember = memberService.saveNewMember(newmember);
 

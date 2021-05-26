@@ -25,4 +25,11 @@ public interface MemberService
     List<Member> findByIdContaining(String partialmemberId);
 
     void delete(long id);
+
+    Member saveNewMember(String newmember);
+
+    /**
+     * Deletes all record and their associated records from the database
+     */
+    public void deleteAll();
 }

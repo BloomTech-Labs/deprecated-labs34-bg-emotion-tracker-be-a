@@ -26,7 +26,7 @@ public class ClubPrograms
     @ManyToOne
     @NotNull
     @JoinColumn(name = "clubid")
-    @JsonIgnoreProperties (value = "programs",
+    @JsonIgnoreProperties (value = {"programs", "program", "users", "members"},
         allowSetters = true)
     private Club club;
 
@@ -38,13 +38,13 @@ public class ClubPrograms
     @ManyToOne
     @NotNull
     @JoinColumn(name = "programid")
-    @JsonIgnoreProperties(value = "clubs", allowSetters = true)
+    @JsonIgnoreProperties(value = {"clubs", "club"}, allowSetters = true)
     private Program program;
 
     // Join table of club programs and member reactions
     @Column
     @OneToMany(
-            mappedBy = "clubProgram",
+            mappedBy = "clubprograms",
             cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<MemberReactions> reactions = new HashSet<>();
 

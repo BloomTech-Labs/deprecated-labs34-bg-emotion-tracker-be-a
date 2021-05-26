@@ -33,7 +33,7 @@ public class ClubMembers extends  Auditable implements Serializable {
     @Id
     @ManyToOne
     @NotNull
-    @JoinColumn(name = "memberid")
+    @JoinColumn(name = "id")
     @JsonIgnoreProperties(value = {"clubs", "reactions"}, allowSetters = true)
     private Member member;
 

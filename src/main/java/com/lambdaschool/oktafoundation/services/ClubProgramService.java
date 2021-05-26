@@ -6,7 +6,9 @@ import java.util.List;
 
 public interface ClubProgramService {
 
-    ClubPrograms findClubProgramById(Long clubprogramid);
+    ClubPrograms findClubProgramById(Long clubactivityid);
+
+//    abstract ClubPrograms findClubProgramById(Long clubprogramid);
 
     List<ClubPrograms> findAll();
 }
