@@ -170,8 +170,8 @@ public class ProgramController {
             // no id provided, try to find by name
             try {
                 var temp = programService.findByName(program.getName());
-                cp = clubProgramRepository.getClubProgramsByProgramIdByClubId(temp.getProgramid(), clubid).orElseThrow();
-                memberReactionRepository.getMemberReactionsByClubProgram_ClubandClibProgram_Program(cp.getClub(), cp.getProgram())
+                cp = clubProgramRepository.getClubProgramsByProgram_ProgramidAndClub_Clubid(temp.getProgramid(), clubid).orElseThrow();
+                memberReactionRepository.getMemberReactionsByClubprograms_ClubAndClubprograms_Program(cp.getClub(), cp.getProgram())
                         .forEach(i -> memberReactionRepository.delete(i));
                 clubProgramRepository.delete(cp);
             } catch (Exception e) {

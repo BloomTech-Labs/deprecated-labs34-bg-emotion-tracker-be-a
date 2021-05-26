@@ -33,7 +33,7 @@ public class ClubPrograms
     // Join table of club programs and member reactions
     @Column
     @OneToMany(
-            mappedBy = "clubProgram",
+            mappedBy = "clubprograms",
             cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<MemberReactions> reactions = new HashSet<>();
 

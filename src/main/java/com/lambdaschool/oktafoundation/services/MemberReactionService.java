@@ -9,5 +9,5 @@ public interface MemberReactionService {
 
     MemberReactions findMemberReactionById(Long id);
 
-    void save(MemberReactions newReaction);
+    MemberReactions save(MemberReactions newReaction);
 }

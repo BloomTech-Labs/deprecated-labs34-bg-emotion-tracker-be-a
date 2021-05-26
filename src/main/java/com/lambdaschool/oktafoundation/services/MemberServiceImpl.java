@@ -22,6 +22,9 @@ public class MemberServiceImpl implements MemberService
     @Autowired
     private MemberRepository memberRepository;
 
+    @Autowired
+    private ReactionsService reactionsService;
+
     @Override
     public List<Member> findAll()
     {
@@ -34,7 +37,29 @@ public class MemberServiceImpl implements MemberService
 
     @Override
     public Member save(Member member) {
-        return null;
+        Member newMember = new Member();
+
+        if (member.getId() != 0) {
+            memberRepository.findById(member.getId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Member id " + member.getMemberid() + " not found"));
+            newMember.setId(member.getId());
+        }
+
+        // if the member id is already in the database, return it, no new member is created
+//        var temp = memberRepository.findMemberByMemberid(member.getMemberid());
+//        if (temp.isPresent()) {
+//            return temp.get();
+//        }
+
+        newMember.setMemberid(member.getMemberid());
+
+        // Relationships
+        newMember.getReactions().clear();
+        for (MemberReactions mr : member.getReactions()) {
+            Reactions addReactions = reactionsService.findReactionById(mr.getReactions().getReactionid());
+            newMember.getReactions().add(new MemberReactions(newMember, addReactions, mr.getClubprograms()));
+        }
+        return memberRepository.save(newMember);
     }
 
     @Override

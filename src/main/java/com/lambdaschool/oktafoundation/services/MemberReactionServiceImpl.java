@@ -39,7 +39,9 @@ public class MemberReactionServiceImpl implements MemberReactionService{
     }
 
     @Override
-    public void save(MemberReactions newReaction) {
-
+    public MemberReactions save(MemberReactions newReaction) {
+        return null;
     }
+
+
 }
