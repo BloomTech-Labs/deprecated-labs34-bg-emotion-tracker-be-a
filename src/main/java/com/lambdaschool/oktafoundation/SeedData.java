@@ -281,6 +281,10 @@ public class SeedData
 //            memberService.save(curmem);
 //        }
 
+        var cps = new ArrayList<ClubPrograms>();
+
+        MemberReactions mr = memberReactionRepository.save(new MemberReactions(m1, re1, cps.get(0)));
+
 
 
 
