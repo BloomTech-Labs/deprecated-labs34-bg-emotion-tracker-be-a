@@ -33,6 +33,11 @@ public class MemberServiceImpl implements MemberService
     }
 
     @Override
+    public Member save(Member member) {
+        return null;
+    }
+
+    @Override
     public List<Member> findByIdContaining(String partialmemberId)
     {
         return memberRepository.findMembersByMemberidContaining(partialmemberId);
@@ -102,5 +107,10 @@ public class MemberServiceImpl implements MemberService
         memberRepository.findById(id)
             .orElseThrow(() -> new ResourceNotFoundException("Member id" + id + " Not Found"));
         memberRepository.deleteById(id);
+    }
+
+    @Override
+    public Member saveNewMember(String newmember) {
+        return null;
     }
 }

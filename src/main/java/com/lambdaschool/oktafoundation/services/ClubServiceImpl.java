@@ -66,4 +66,10 @@ public class ClubServiceImpl implements ClubService
         clubRepository.deleteAll();
     }
 
+    @Override
+    public Club findClubById(Long clubid) throws ResourceNotFoundException{
+        return clubRepository.findById(clubid)
+                .orElseThrow(() -> new ResourceNotFoundException("Club id" + clubid + "not found!"));
+    }
+
 }

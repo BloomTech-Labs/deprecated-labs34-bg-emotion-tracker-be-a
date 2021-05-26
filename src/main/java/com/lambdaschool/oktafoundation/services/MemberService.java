@@ -23,4 +23,6 @@ public interface MemberService
     List<Member> findByIdContaining(String partialmemberId);
 
     void delete(long id);
+
+    Member saveNewMember(String newmember);
 }

@@ -161,7 +161,7 @@ public class MemberController {
         @RequestBody
             String newmember) {
 
-
+        // TODO: Save function in memberserviceimpl
         Member addedMember = memberService.saveNewMember(newmember);
 
         HttpHeaders responseHeaders = new HttpHeaders();

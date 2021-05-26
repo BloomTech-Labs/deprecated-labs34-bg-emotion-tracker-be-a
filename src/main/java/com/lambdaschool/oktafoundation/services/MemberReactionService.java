@@ -8,4 +8,6 @@ public interface MemberReactionService {
     List<MemberReactions> findAll();
 
     MemberReactions findMemberReactionById(Long id);
+
+    void save(MemberReactions newReaction);
 }

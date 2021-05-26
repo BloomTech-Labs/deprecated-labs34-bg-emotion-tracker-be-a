@@ -37,4 +37,9 @@ public class MemberReactionServiceImpl implements MemberReactionService{
         return memberReactionRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Member Reaction id" + id + "not found."));
     }
+
+    @Override
+    public void save(MemberReactions newReaction) {
+
+    }
 }
