@@ -7,5 +7,7 @@ import java.util.List;
 public interface MemberReactionService {
     List<MemberReactions> findAll();
 
+    MemberReactions save(MemberReactions memberReactions);
+
     MemberReactions findMemberReactionById(Long id);
 }

@@ -95,6 +95,11 @@ public class MemberServiceImpl implements MemberService
         return mm;
     }
 
+    @Override
+    public Member save(Member member){
+        return memberRepository.save(member);
+    }
+
 
     @Override
     public void delete(long id)
