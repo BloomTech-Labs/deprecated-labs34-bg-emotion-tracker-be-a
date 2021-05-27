@@ -26,7 +26,7 @@ public interface MemberService
 
     void delete(long id);
 
-    Member saveNewMember(String newmember);
+//    Member saveNewMember(String newmember);
 
     /**
      * Deletes all record and their associated records from the database

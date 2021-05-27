@@ -32,32 +32,32 @@ public class MemberController {
     @ApiOperation(value = "returns all Members",
         response = Member.class,
         responseContainer = "List")
-    @PreAuthorize("hasAnyRole('SUPERADMIN, CLUBDIR')")
+    @PreAuthorize("hasAnyRole('ADMIN, CD')")
     public ResponseEntity<?> listAllMembers() {
         List<Member> myMembers = memberService.findAll();
         return new ResponseEntity<>(myMembers,
             HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/upload", method = RequestMethod.POST, consumes = "multipart/form-data", produces = "application/json")
-    @ApiOperation(value = "adds new members to the database from a CSV file")
-    @ApiResponses(value = {
-        @ApiResponse(code = 200,
-            message = "OK",
-            response = Member.class,
-            responseContainer = "list"),
-        @ApiResponse(code = 400,
-            message = "Bad Request",
-            response = ErrorDetail.class)})
-    @PreAuthorize("hasAnyRole('SUPERADMIN, CLUBDIR')")
-    public ResponseEntity<?> uploadMembers(
-        @ApiParam(value = "a CSV file of memberid strings",
-            required = true)
-            MultipartFile csvfile) throws Exception {
-        List<Member> csvMembers = memberService.saveNewMembers(csvfile.getInputStream());
-        return new ResponseEntity<>(csvMembers, HttpStatus.OK);
+//    @RequestMapping(value = "/upload", method = RequestMethod.POST, consumes = "multipart/form-data", produces = "application/json")
+//    @ApiOperation(value = "adds new members to the database from a CSV file")
+//    @ApiResponses(value = {
+//        @ApiResponse(code = 200,
+//            message = "OK",
+//            response = Member.class,
+//            responseContainer = "list"),
+//        @ApiResponse(code = 400,
+//            message = "Bad Request",
+//            response = ErrorDetail.class)})
+//    @PreAuthorize("hasAnyRole('SUPERADMIN, CLUBDIR')")
+//    public ResponseEntity<?> uploadMembers(
+//        @ApiParam(value = "a CSV file of memberid strings",
+//            required = true)
+//            MultipartFile csvfile) throws Exception {
+//        List<Member> csvMembers = memberService.saveNewMembers(csvfile.getInputStream());
+//        return new ResponseEntity<>(csvMembers, HttpStatus.OK);
 
-    }
+    //}
 
     @RequestMapping(value = "/member/{javaId}", method = RequestMethod.GET, produces = "application/json")
     @ApiOperation(value = "returns a member with the path parameter id",
@@ -69,7 +69,7 @@ public class MemberController {
         @ApiResponse(code = 404,
             message = "Member Not Found",
             response = ResourceNotFoundException.class)})
-    @PreAuthorize("hasAnyRole('SUPERADMIN, CLUBDIR')")
+    @PreAuthorize("hasAnyRole('ADMIN, CD')")
     public ResponseEntity<?> getMemberByJavaId(
         @ApiParam(value = "member id",
             required = true,
@@ -91,7 +91,7 @@ public class MemberController {
         @ApiResponse(code = 404,
             message = "Member Not Found",
             response = ResourceNotFoundException.class)})
-    @PreAuthorize("hasAnyRole('SUPERADMIN, CLUBDIR')")
+    @PreAuthorize("hasAnyRole('ADMIN, CD')")
     public ResponseEntity<?> getMemberByMemberId(
         @ApiParam(value = "memberid",
             required = true,
@@ -111,7 +111,7 @@ public class MemberController {
             response = Member.class,
             responseContainer = "List")
     })
-    @PreAuthorize("hasAnyRole('SUPERADMIN, CLUBDIR')")
+    @PreAuthorize("hasAnyRole('ADMIN, CD')")
     public ResponseEntity<?> getMemberLikeId(
         @ApiParam(value = "partial memberid",
             required = true,

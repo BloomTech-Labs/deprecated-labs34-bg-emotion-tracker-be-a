@@ -26,7 +26,7 @@ public class ClubPrograms
     @ManyToOne
     @NotNull
     @JoinColumn(name = "clubid")
-    @JsonIgnoreProperties (value = {"programs", "program", "users", "members"},
+    @JsonIgnoreProperties (value = {"program", "members"},
         allowSetters = true)
     private Club club;
 
@@ -38,7 +38,7 @@ public class ClubPrograms
     @ManyToOne
     @NotNull
     @JoinColumn(name = "programid")
-    @JsonIgnoreProperties(value = {"clubs", "club"}, allowSetters = true)
+    @JsonIgnoreProperties(value = {"clubs"}, allowSetters = true)
     private Program program;
 
     // Join table of club programs and member reactions

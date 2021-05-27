@@ -55,11 +55,11 @@ public class ClubServiceImpl implements ClubService
         newClub.setClubname(club.getClubname());
         newClub.setClubdirector(club.getClubdirector());
 
-        newClub.getPrograms().clear();
-        for (ClubPrograms cp : club.getPrograms())
+        newClub.getProgram().clear();
+        for (ClubPrograms cp : club.getProgram())
         {
             Program addProgram = programService.findProgramById(cp.getProgram().getProgramid());
-            newClub.getPrograms().add(new ClubPrograms(newClub, addProgram));
+            newClub.getProgram().add(new ClubPrograms(newClub, addProgram));
         }
 
         return clubRepository.save(newClub);
@@ -92,16 +92,16 @@ public class ClubServiceImpl implements ClubService
             updateClub.setClubdirector(club.getClubdirector());
         }
         // set relationships
-        if(club.getPrograms().size() > 0)
+        if(club.getProgram().size() > 0)
         {
-            updateClub.getPrograms()
+            updateClub.getProgram()
                     .clear();
-            for(ClubPrograms cp: club.getPrograms())
+            for(ClubPrograms cp: club.getProgram())
             {
                 Program newProgram = programRepository.findById(cp.getProgram().getProgramid())
                         .orElseThrow(() -> new EntityNotFoundException("Program" + cp.getProgram().getProgramid() + "not found"));
 
-                updateClub.getPrograms().add(new ClubPrograms(updateClub, newProgram));
+                updateClub.getProgram().add(new ClubPrograms(updateClub, newProgram));
             }
         }
         return clubRepository.save(updateClub);
