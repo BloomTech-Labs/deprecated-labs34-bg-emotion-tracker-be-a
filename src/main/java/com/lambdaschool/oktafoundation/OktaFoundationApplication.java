@@ -13,7 +13,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  */
 @EnableJpaAuditing
 @SpringBootApplication
-@PropertySource("file:/Users/loustevens/Desktop/oktafoundationconfig.properties")
+//@PropertySource("file:/Users/loustevens/Desktop/oktafoundationconfig.properties")
 @EnableSwagger2
 public class OktaFoundationApplication
 {
