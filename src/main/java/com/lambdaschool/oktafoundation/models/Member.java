@@ -31,7 +31,7 @@ public class Member extends Auditable
     private String memberid;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnoreProperties(value = "member", allowSetters = true)
+    @JsonIgnoreProperties(value = {"member", "memberReactions", "reactions"}, allowSetters = true)
     private Set <MemberReactions> reactions = new HashSet<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)

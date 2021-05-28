@@ -83,7 +83,7 @@ public class MemberReactionController {
     @PreAuthorize("hasAnyRole('ADMIN','CD','YDP')")
     public ResponseEntity<?> addNewReaction(
         @RequestParam(value = "mid") String mid,
-        @RequestParam(value = "aid") Long aid,
+        @RequestParam(value = "pid") Long pid,
         @RequestParam(value = "cid") Long cid,
         @RequestParam(value = "rx") String rx
     ) {
@@ -106,12 +106,12 @@ public class MemberReactionController {
 
 
         var precp = clubProgramRepository.getClubProgramsByProgram_ProgramidAndClub_Clubid(
-            aid, cid
+            pid, cid
         );
 
         ClubPrograms cp;
         if (precp.isEmpty()) {
-            return new ResponseEntity<>("No such Club Activity", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("No such Club Program", HttpStatus.NOT_FOUND);
         } else {
             cp = precp.get();
         }

@@ -258,7 +258,7 @@ public class SeedData
         var cas = new ArrayList<ClubPrograms>();
         Arrays.stream(clist).forEach(i -> cas.addAll(i.getProgram()));
 
-        for (int i = 0; i < 300; i++) {
+        for (int i = 0; i < 5; i++) {
             var curmem = allmem.get(ran.nextInt(allmem.size()));
             var curca = cas.get(ran.nextInt(cas.size()));
             MemberReactions mr;
