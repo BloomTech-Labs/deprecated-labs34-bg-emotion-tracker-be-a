@@ -13,7 +13,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
  */
 @EnableJpaAuditing
 @SpringBootApplication
-@PropertySource("file:\\Users\\justi\\oktafoundationconfig.properties")
+//@PropertySource("file:C:\\Users\\justi\\oktafoundationconfig.properties")
 
 public class OktaFoundationApplication
 {
