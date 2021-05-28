@@ -6,15 +6,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
 
 /**
  * Main class to start the application.
  */
 @EnableJpaAuditing
 @SpringBootApplication
-//@PropertySource("file:/Users/loustevens/Desktop/oktafoundationconfig.properties")
-@EnableSwagger2
+@PropertySource("file:\\Users\\justi\\oktafoundationconfig.properties")
+
 public class OktaFoundationApplication
 {
     /**
