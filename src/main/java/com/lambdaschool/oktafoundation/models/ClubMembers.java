@@ -23,7 +23,7 @@ public class ClubMembers extends  Auditable implements Serializable {
     @ManyToOne
     @NotNull
     @JoinColumn(name = "clubid")
-    @JsonIgnoreProperties(value = {"members", "programs", "users"}, allowSetters = true)
+    @JsonIgnoreProperties(value = {"members", "programs", "users", "memberReactions"}, allowSetters = true)
     private Club club;
 
     @ApiModelProperty(name = "memberid",
@@ -34,7 +34,7 @@ public class ClubMembers extends  Auditable implements Serializable {
     @ManyToOne
     @NotNull
     @JoinColumn(name = "id")
-    @JsonIgnoreProperties(value = {"clubs", "reactions"}, allowSetters = true)
+    @JsonIgnoreProperties(value = {"clubs", "reactions", "memberReactions"}, allowSetters = true)
     private Member member;
 
     public ClubMembers() {
