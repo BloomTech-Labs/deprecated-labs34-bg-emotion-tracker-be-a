@@ -127,4 +127,5 @@ public class ClubController {
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
 }
