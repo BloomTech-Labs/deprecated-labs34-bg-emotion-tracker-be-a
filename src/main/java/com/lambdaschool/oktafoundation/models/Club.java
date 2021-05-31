@@ -40,7 +40,7 @@ public class Club extends Auditable {
     @OneToMany(fetch = FetchType.EAGER,
             mappedBy = "club",
             cascade = CascadeType.ALL)
-    @JsonIgnoreProperties(value = "club",
+    @JsonIgnoreProperties(value = {"club","reactions", "memberReactions"},
             allowSetters = true)
     private Set<ClubPrograms> programs = new HashSet<>();
 

@@ -1,5 +1,6 @@
 package com.lambdaschool.oktafoundation.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -26,7 +27,8 @@ public class ClubPrograms
     @ManyToOne
     @NotNull
     @JoinColumn(name = "clubid")
-    @JsonIgnoreProperties (value = {"program", "members"},
+    @JsonIgnoreProperties (value = {"program", "members", "reactions", "clubprograms",
+    "clubMembers"},
         allowSetters = true)
     private Club club;
 
@@ -38,7 +40,7 @@ public class ClubPrograms
     @ManyToOne
     @NotNull
     @JoinColumn(name = "programid")
-    @JsonIgnoreProperties(value = {"clubs"}, allowSetters = true)
+    @JsonIgnoreProperties(value = {"clubs", "members", "reactions","clubprogams" }, allowSetters = true)
     private Program program;
 
     // Join table of club programs and member reactions
@@ -46,6 +48,7 @@ public class ClubPrograms
     @OneToMany(
             mappedBy = "clubprograms",
             cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private Set<MemberReactions> reactions = new HashSet<>();
 
     public ClubPrograms(){
