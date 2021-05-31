@@ -30,13 +30,12 @@ public class Member extends Auditable
     @Column(unique = true)
     private String memberid;
 
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnoreProperties(value = "member", allowSetters = true)
-    private Set <MemberReactions> reactions = new HashSet<>();
+    @ManyToMany(cascade = CascadeType.MERGE)
+    @JoinTable(name = "member_reactions",
+        joinColumns =  {@JoinColumn(name = "memberid")},
+        inverseJoinColumns = {@JoinColumn(name = "reactionid")})
+    private Set<Reactions> memberReactons = new HashSet<Reactions>(0);
 
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnoreProperties(value = "member", allowSetters = true)
-    private Set<ClubMembers> clubMember = new HashSet<>();
 
     public Member()
     {
@@ -49,14 +48,6 @@ public class Member extends Auditable
     public Member(long id, @NotNull String memberid) {
         this.id = id;
         this.memberid = memberid;
-    }
-
-    public Set<MemberReactions> getReactions() {
-        return reactions;
-    }
-
-    public void setReactions(Set<MemberReactions> reactions) {
-        this.reactions = reactions;
     }
 
     public long getId() {
@@ -75,11 +66,11 @@ public class Member extends Auditable
         this.memberid = memberid;
     }
 
-    public Set<ClubMembers> getClubs() {
-        return clubMember;
+    public Set<Reactions> getMemberReactons() {
+        return memberReactons;
     }
 
-    public void setClubs(Set<ClubMembers> clubs) {
-        this.clubMember = clubs;
+    public void setMemberReactons(Set<Reactions> memberReactons) {
+        this.memberReactons = memberReactons;
     }
 }

@@ -122,7 +122,7 @@
     </dependencies>
 
     <build>
-        <finalName>bg-emotion-tracker-be-a</finalName>
+        <finalName>bg-emotion-tracker-be--a</finalName>
 
         <plugins>
 

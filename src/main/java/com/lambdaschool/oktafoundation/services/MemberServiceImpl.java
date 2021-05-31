@@ -45,8 +45,7 @@ public class MemberServiceImpl implements MemberService
         {
             Member addMember = new Member();
             addMember.setMemberid(newMember);
-            Member addedMember = save(addMember);
-            return addedMember;
+            return addMember;
         }
         return isCurrentMember;
     }
@@ -70,10 +69,10 @@ public class MemberServiceImpl implements MemberService
         newMember.setMemberid(member.getMemberid());
 
         // Relationships
-        newMember.getReactions().clear();
-        for (MemberReactions mr : member.getReactions()) {
-            Reactions addReactions = reactionsService.findReactionById(mr.getReactions().getReactionid());
-            newMember.getReactions().add(new MemberReactions(newMember, addReactions, mr.getClubprograms()));
+        newMember.getMemberReactons().clear();
+        for (Reactions mr : member.getMemberReactons()) {
+            Reactions addReactions = reactionsService.findReactionById(mr.getReactionid());
+            newMember.setMemberReactons(member.getMemberReactons());
         }
         return memberRepository.save(newMember);
     }
@@ -141,12 +140,6 @@ public class MemberServiceImpl implements MemberService
         return mm;
     }
 
-//    @Override
-//    public Member save(Member member){
-//        return memberRepository.save(member);
-//    }
-
-
     @Override
     public void delete(long id)
     {
@@ -154,11 +147,6 @@ public class MemberServiceImpl implements MemberService
             .orElseThrow(() -> new ResourceNotFoundException("Member id" + id + " Not Found"));
         memberRepository.deleteById(id);
     }
-//
-//    @Override
-//    public Member saveNewMember(String newmember) {
-//        return null;
-//    }
 
     @Override
     public void deleteAll() {

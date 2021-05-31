@@ -1,6 +1,5 @@
 package com.lambdaschool.oktafoundation.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
@@ -26,9 +25,11 @@ public class Program extends Auditable{
     @Column(unique = true)
     private String name;
 
-    @OneToMany(mappedBy = "program", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnoreProperties (value = "program", allowSetters = true)
-    private Set<ClubPrograms> clubs = new HashSet<>();
+    @ManyToMany(cascade = CascadeType.MERGE)
+    @JoinTable(name = "program_reactions",
+        joinColumns = {@JoinColumn(name = "programid")},
+        inverseJoinColumns = {@JoinColumn(name = "reactionid")})
+    private Set<Reactions> programReactions = new HashSet<Reactions>(0);
 
     public Program() {
     }
@@ -53,11 +54,11 @@ public class Program extends Auditable{
         this.name = name.toLowerCase();
     }
 
-    public Set<ClubPrograms> getClubs() {
-        return clubs;
+    public Set<Reactions> getProgramReactions() {
+        return programReactions;
     }
 
-    public void setClubs(Set<ClubPrograms> clubs) {
-        this.clubs = clubs;
+    public void setProgramReactions(Set<Reactions> programReactions) {
+        this.programReactions = programReactions;
     }
 }

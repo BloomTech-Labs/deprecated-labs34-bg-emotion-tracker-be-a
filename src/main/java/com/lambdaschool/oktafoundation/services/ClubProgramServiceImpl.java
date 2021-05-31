@@ -32,10 +32,4 @@ public class ClubProgramServiceImpl implements ClubProgramService{
             .forEachRemaining(list::add);
         return list;
     }
-
-//    @Override
-//    public ClubPrograms findClubProgramById(Long clubprogramid) throws ResourceNotFoundException{
-//        return clubprogramrepos.findById(clubprogramid)
-//            .orElseThrow(()-> new ResourceNotFoundException("Club Program id " + clubprogramid + " not found!"));
-//    }
 }

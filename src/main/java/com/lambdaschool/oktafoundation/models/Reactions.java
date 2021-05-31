@@ -5,10 +5,11 @@ import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Set;
 
 @ApiModel(value = "Reactions")
 @Entity
-@Table (name = "reactions")
+@Table (name = "reaction")
 public class Reactions extends Auditable {
     @ApiModelProperty(name = "reactionid",
         value = "primary key for reactions",
@@ -34,13 +35,11 @@ public class Reactions extends Auditable {
     @Column(unique = true)
     private String emojicode;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member")
-    private Member member;
+    @ManyToMany(mappedBy = "reactions")
+    private Set<Member> members;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "program")
-    private Program program;
+    @ManyToMany(mappedBy = "reactions")
+    private Set<Program> programs;
 
     public Reactions() {
     }
@@ -74,20 +73,20 @@ public class Reactions extends Auditable {
         this.emojicode = emojicode;
     }
 
-    public Member getMember() {
-        return member;
+    public Set<Member> getMembers() {
+        return members;
     }
 
-    public void setMember(Member member) {
-        this.member = member;
+    public void setMembers(Set<Member> members) {
+        this.members = members;
     }
 
-    public Program getProgram() {
-        return program;
+    public Set<Program> getPrograms() {
+        return programs;
     }
 
-    public void setProgram(Program program) {
-        this.program = program;
+    public void setPrograms(Set<Program> programs) {
+        this.programs = programs;
     }
 }
 

@@ -10,7 +10,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "programreactions")
 @IdClass (ProgramReactionId.class)
-public class ProgramReactions extends Auditable implements Serializable {
+public class                                                           ProgramReactions extends Auditable implements Serializable {
     @Id
     @ManyToOne
     @JoinColumn(name = "programid")

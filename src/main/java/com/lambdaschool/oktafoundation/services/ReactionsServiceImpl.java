@@ -58,7 +58,18 @@ public class ReactionsServiceImpl implements ReactionsService {
     @Transactional
     @Override
     public Reactions save(Reactions reaction){
-        return reactionrepos.save(reaction);
+        Reactions newReaction  = new Reactions();
+
+        if(reaction.getReactionid() != 0){
+            reactionrepos.findById(reaction.getReactionid())
+                .orElseThrow(()-> new ResourceNotFoundException("Reaction id " + reaction.getReactionid() + " not Found!"));
+            newReaction.setReactionid(reaction.getReactionid());
+        }
+
+        newReaction.setEmojiname(reaction.getEmojiname());
+        newReaction.setEmojicode(reaction.getEmojicode());
+
+        return reactionrepos.save(newReaction);
     }
 
     @Transactional
@@ -70,14 +81,17 @@ public class ReactionsServiceImpl implements ReactionsService {
     @Transactional
     @Override
     public Reactions update(long id, Reactions reaction){
-        if(reaction.getEmojiname() == null){
-            throw new ResourceNotFoundException("No reaction name found to update!");
+        Reactions updateReaction = reactionrepos.findById(id)
+            .orElseThrow(()-> new ResourceNotFoundException("No reaction name found to update!"));
+
+        if(reaction.getEmojiname()!= null){
+            updateReaction.setEmojiname(reaction.getEmojiname());
         }
-      
-        Reactions newReaction = findReactionById(id);
-        reactionrepos.updateEmojiname(userAuditing.getCurrentAuditor()
-                .get(),
-                id, reaction.getEmojiname());
-        return findReactionById(id);
+
+        if(reaction.getEmojicode() != null){
+            updateReaction.setEmojicode(reaction.getEmojicode());
+        }
+
+        return reactionrepos.save(updateReaction);
     }
 }

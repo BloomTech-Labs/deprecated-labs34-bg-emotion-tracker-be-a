@@ -42,12 +42,7 @@ public class Club extends Auditable {
             cascade = CascadeType.ALL)
     @JsonIgnoreProperties(value = "club",
             allowSetters = true)
-    private Set<ClubPrograms> program = new HashSet<>();
-
-    @OneToMany(mappedBy = "club", cascade = CascadeType.ALL,
-            orphanRemoval = true)
-    @JsonIgnoreProperties(value = "club", allowSetters = true)
-    private Set<ClubMembers> members = new HashSet<>();
+    private Set<ClubPrograms> programs = new HashSet<>();
 
     public Club() {
     }
@@ -63,7 +58,7 @@ public class Club extends Auditable {
             Set<ClubPrograms> programs) {
         this.clubname = clubname;
         this.clubdirector = clubdirector;
-        this.program = program;
+        this.programs = programs;
     }
 
 
@@ -92,19 +87,11 @@ public class Club extends Auditable {
     }
 
     public Set<ClubPrograms> getProgram() {
-        return program;
+        return programs;
     }
 
     public void setProgram(Set<ClubPrograms> program) {
-        this.program = program;
-    }
-
-    public Set<ClubMembers> getMembers() {
-        return members;
-    }
-
-    public void setMembers(Set<ClubMembers> members) {
-        this.members = members;
+        this.programs = program;
     }
 }
 

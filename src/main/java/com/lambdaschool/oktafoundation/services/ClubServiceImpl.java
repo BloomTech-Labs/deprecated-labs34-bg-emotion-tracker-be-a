@@ -30,8 +30,7 @@ public class ClubServiceImpl implements ClubService
     ProgramRepository programRepository;
 
     @Override
-    public List<Club> findAll()
-    {
+    public List<Club> findAll() {
         List<Club> list = new ArrayList<>();
 
         clubRepository.findAll()
@@ -42,11 +41,9 @@ public class ClubServiceImpl implements ClubService
 
     @Transactional
     @Override
-    public Club save(Club club)
-    {
+    public Club save(Club club) {
         Club newClub = new Club();
-        if (club.getClubid() != 0)
-        {
+        if (club.getClubid() != 0) {
             clubRepository.findById(club.getClubid())
                 .orElseThrow(() -> new ResourceNotFoundException("Club id " + club.getClubid() + " not found!"));
             newClub.setClubid(club.getClubid());
@@ -56,8 +53,7 @@ public class ClubServiceImpl implements ClubService
         newClub.setClubdirector(club.getClubdirector());
 
         newClub.getProgram().clear();
-        for (ClubPrograms cp : club.getProgram())
-        {
+        for (ClubPrograms cp : club.getProgram()) {
             Program addProgram = programService.findProgramById(cp.getProgram().getProgramid());
             newClub.getProgram().add(new ClubPrograms(newClub, addProgram));
         }
@@ -66,8 +62,7 @@ public class ClubServiceImpl implements ClubService
     }
 
     @Override
-    public void deleteAll()
-    {
+    public void deleteAll() {
         clubRepository.deleteAll();
     }
 
@@ -83,21 +78,17 @@ public class ClubServiceImpl implements ClubService
                 .orElseThrow(() -> new ResourceNotFoundException("Club" + clubid + " not found"));
 
         // set fields
-        if (club.getClubname() != null)
-        {
+        if (club.getClubname() != null) {
             updateClub.setClubname(club.getClubname());
         }
-        if (club.getClubdirector() != null)
-        {
+        if (club.getClubdirector() != null) {
             updateClub.setClubdirector(club.getClubdirector());
         }
         // set relationships
-        if(club.getProgram().size() > 0)
-        {
+        if(club.getProgram().size() > 0) {
             updateClub.getProgram()
                     .clear();
-            for(ClubPrograms cp: club.getProgram())
-            {
+            for(ClubPrograms cp: club.getProgram()) {
                 Program newProgram = programRepository.findById(cp.getProgram().getProgramid())
                         .orElseThrow(() -> new EntityNotFoundException("Program" + cp.getProgram().getProgramid() + "not found"));
 
@@ -105,7 +96,5 @@ public class ClubServiceImpl implements ClubService
             }
         }
         return clubRepository.save(updateClub);
-
     }
-
 }

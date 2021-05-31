@@ -1,7 +1,6 @@
 package com.lambdaschool.oktafoundation.controllers;
 
 import com.lambdaschool.oktafoundation.models.Club;
-import com.lambdaschool.oktafoundation.models.ClubMembers;
 import com.lambdaschool.oktafoundation.models.Member;
 import com.lambdaschool.oktafoundation.repository.ClubMembersRepository;
 import com.lambdaschool.oktafoundation.repository.ClubRepository;
