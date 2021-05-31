@@ -1,7 +1,6 @@
 package com.lambdaschool.oktafoundation;
 
 import com.lambdaschool.oktafoundation.models.*;
-import com.lambdaschool.oktafoundation.repository.MemberReactionRepository;
 import com.lambdaschool.oktafoundation.repository.ReactionRepository;
 import com.lambdaschool.oktafoundation.services.*;
 import org.springframework.beans.factory.annotation.Autowired;

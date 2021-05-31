@@ -3,13 +3,10 @@ package com.lambdaschool.oktafoundation.controllers;
 
 import com.lambdaschool.oktafoundation.models.Club;
 import com.lambdaschool.oktafoundation.models.ClubPrograms;
-import com.lambdaschool.oktafoundation.models.Member;
 import com.lambdaschool.oktafoundation.exceptions.ResourceNotFoundException;
 import com.lambdaschool.oktafoundation.models.ErrorDetail;
 import com.lambdaschool.oktafoundation.models.Program;
-import com.lambdaschool.oktafoundation.repository.ClubProgramRepository;
 import com.lambdaschool.oktafoundation.repository.ClubRepository;
-import com.lambdaschool.oktafoundation.repository.MemberReactionRepository;
 import com.lambdaschool.oktafoundation.services.ProgramService;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,11 +32,7 @@ public class ProgramController {
     @Autowired
     private ClubRepository clubRepository;
 
-    @Autowired
-    private ClubProgramRepository clubProgramRepository;
 
-    @Autowired
-    private MemberReactionRepository memberReactionRepository;
 
 
     /**
@@ -195,32 +188,4 @@ public class ProgramController {
         clubRepository.save(club);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
-    /**
-     * Given a flexible activity object and a clubId, remove the activity from the Club with the given id.
-     *
-     * @param program A program that exists in a club
-     * @param clubid The id of the club to which the program should be removed
-     */
-    @PostMapping(value = "/program/removefromclub/{clubid}", consumes = "application/json")
-    public ResponseEntity<?> removeActivityFromClub(@RequestBody Program program, @PathVariable long clubid)
-    {
-        ClubPrograms cp;
-
-        if (program.getProgramid() == 0){
-            // no id provided, try to find by name
-            try {
-                var temp = programService.findByName(program.getName());
-                cp = clubProgramRepository.getClubProgramsByProgram_ProgramidAndClub_Clubid(temp.getProgramid(), clubid).orElseThrow();
-                memberReactionRepository.getMemberReactionsByClubprograms_ClubAndClubprograms_Program(cp.getClub(), cp.getProgram())
-                        .forEach(i -> memberReactionRepository.delete(i));
-                clubProgramRepository.delete(cp);
-            } catch (Exception e) {
-                return new ResponseEntity<>("No such club activity", HttpStatus.NOT_MODIFIED);
-            }
-        }
-
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
 }

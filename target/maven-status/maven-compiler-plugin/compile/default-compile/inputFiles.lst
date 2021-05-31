@@ -1,5 +1,4 @@
 C:\Users\justi\Documents\LambdaProjects\bg-emotion-tracker-be-a\src\main\java\com\lambdaschool\oktafoundation\config\SwaggerWebMVC.java
-C:\Users\justi\Documents\LambdaProjects\bg-emotion-tracker-be-a\src\main\java\com\lambdaschool\oktafoundation\repository\ClubProgramRepository.java
 C:\Users\justi\Documents\LambdaProjects\bg-emotion-tracker-be-a\src\main\java\com\lambdaschool\oktafoundation\models\UserRoles.java
 C:\Users\justi\Documents\LambdaProjects\bg-emotion-tracker-be-a\src\main\java\com\lambdaschool\oktafoundation\repository\ClubRepository.java
 C:\Users\justi\Documents\LambdaProjects\bg-emotion-tracker-be-a\src\main\java\com\lambdaschool\oktafoundation\services\HelperFunctionsImpl.java
@@ -17,7 +16,6 @@ C:\Users\justi\Documents\LambdaProjects\bg-emotion-tracker-be-a\src\main\java\co
 C:\Users\justi\Documents\LambdaProjects\bg-emotion-tracker-be-a\src\main\java\com\lambdaschool\oktafoundation\models\UserRolesId.java
 C:\Users\justi\Documents\LambdaProjects\bg-emotion-tracker-be-a\src\main\java\com\lambdaschool\oktafoundation\services\UserServiceImpl.java
 C:\Users\justi\Documents\LambdaProjects\bg-emotion-tracker-be-a\src\main\java\com\lambdaschool\oktafoundation\exceptions\package-info.java
-C:\Users\justi\Documents\LambdaProjects\bg-emotion-tracker-be-a\src\main\java\com\lambdaschool\oktafoundation\repository\MemberReactionRepository.java
 C:\Users\justi\Documents\LambdaProjects\bg-emotion-tracker-be-a\src\main\java\com\lambdaschool\oktafoundation\models\Reactions.java
 C:\Users\justi\Documents\LambdaProjects\bg-emotion-tracker-be-a\src\main\java\com\lambdaschool\oktafoundation\services\ProgramService.java
 C:\Users\justi\Documents\LambdaProjects\bg-emotion-tracker-be-a\src\main\java\com\lambdaschool\oktafoundation\models\package-info.java
@@ -70,6 +68,5 @@ C:\Users\justi\Documents\LambdaProjects\bg-emotion-tracker-be-a\src\main\java\co
 C:\Users\justi\Documents\LambdaProjects\bg-emotion-tracker-be-a\src\main\java\com\lambdaschool\oktafoundation\config\OktaAuthSecurityConfig.java
 C:\Users\justi\Documents\LambdaProjects\bg-emotion-tracker-be-a\src\main\java\com\lambdaschool\oktafoundation\repository\UserRepository.java
 C:\Users\justi\Documents\LambdaProjects\bg-emotion-tracker-be-a\src\main\java\com\lambdaschool\oktafoundation\OktaFoundationApplication.java
-C:\Users\justi\Documents\LambdaProjects\bg-emotion-tracker-be-a\src\main\java\com\lambdaschool\oktafoundation\repository\ClubMembersRepository.java
 C:\Users\justi\Documents\LambdaProjects\bg-emotion-tracker-be-a\src\main\java\com\lambdaschool\oktafoundation\services\UseremailServiceImpl.java
 C:\Users\justi\Documents\LambdaProjects\bg-emotion-tracker-be-a\src\main\java\com\lambdaschool\oktafoundation\models\ValidationError.java

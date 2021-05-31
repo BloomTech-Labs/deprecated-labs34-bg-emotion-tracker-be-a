@@ -2,7 +2,6 @@ package com.lambdaschool.oktafoundation.controllers;
 
 import com.lambdaschool.oktafoundation.models.Club;
 import com.lambdaschool.oktafoundation.models.Member;
-import com.lambdaschool.oktafoundation.repository.ClubMembersRepository;
 import com.lambdaschool.oktafoundation.repository.ClubRepository;
 import com.lambdaschool.oktafoundation.services.ClubService;
 
@@ -35,9 +34,6 @@ public class ClubController {
 
     @Autowired
     private MemberService memberService;
-
-    @Autowired
-    private ClubMembersRepository clubMembersRepository;
 
 
     @RequestMapping(value = "/clubs", method = RequestMethod.GET, produces = "application/json")
@@ -131,63 +127,4 @@ public class ClubController {
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
-    /**
-     * Given a Club key and a body supplying a list of memberids, add the members to the clubs.
-     *
-     * @param cid The primary key of the club
-     * @param members The body supplying a list of memberid
-     */
-    @PreAuthorize("hasAnyRole('ADMIN', 'CD')")
-    @PostMapping(value = "/club/{cid}/addMembers")
-    public ResponseEntity<?> addNewMembersToClub(@PathVariable long cid, @RequestBody List<Member> members){
-        var club = clubService.findClubById(cid);
-
-        for (var i: members) {
-            var mem = memberService.findMemberByStringId(i.getMemberid());
-            clubMembersRepository.save(new ClubMembers(club, mem));
-        }
-
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    /**
-     * Given a Club key and memberID, remove the member from the club if the member is found in.
-     * <br> Example: <a href="http://localhost:2019/club/22/removeMember/testmember2">http://localhost:2019/club/22/removeMember/testmember2</a>
-     *
-     * @param cid The primary key of the club
-     * @param mid The String value of the memberID
-     */
-    @PreAuthorize("hasAnyRole('ADMIN', 'CD')")
-    @DeleteMapping(value = "/club/{cid}/removeMember/{mid}")
-    public ResponseEntity<?> removeMemberFromClub(@PathVariable Long cid, @PathVariable String mid) throws URISyntaxException
-    {
-        var cm = clubMembersRepository.findClubMembersByClub_ClubidAndMemberId_Memberid(cid, mid);
-        if(cm.isPresent()){
-            clubMembersRepository.delete(cm.get());
-            return new ResponseEntity<>(null, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>("No Such Relationship exists", HttpStatus.NOT_MODIFIED);
-        }
-    }
-
-    /**
-     * Given a Club key and a body supplying a list of memberids, remove the members
-     *
-     * @param cid The primary key of the club
-     * @param members The body supplying a list of memberid
-     */
-    @PreAuthorize("hasAnyRole('ADMIN', 'CD')")
-    @PostMapping(value = "/club/{cid}/removeMembers")
-    public ResponseEntity<?> removeMembersFromClub(@PathVariable Long cid, @RequestBody List<Member> members){
-        var club = clubService.findClubById(cid);
-
-        for(var i: members){
-            var mem = memberService.findMemberByStringId(i.getMemberid());
-            var cm = clubMembersRepository.findClubMembersByClub_ClubidAndMemberId_Memberid(club.getClubid(), mem.getMemberid());
-            cm.ifPresent(clubMembers -> clubMembersRepository.delete(clubMembers));
-        }
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
 }
